@@ -1,0 +1,6 @@
+# python
+__pycache__
+
+# 数据存储
+*.json
+*.db
