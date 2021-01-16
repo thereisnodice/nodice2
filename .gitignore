@@ -1,6 +1,14 @@
+# 配置文件
+config.py
+bot_config.py
+
 # python
 __pycache__
 
 # 数据存储
 *.json
 *.db
+
+# 内置牌堆
+!insane.json
+!name.json
