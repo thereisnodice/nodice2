@@ -4,7 +4,7 @@
 - `.r`
 - `.bot on/off` `.dismiss`
 
-*前期将会专注于迁移 nodice1 已经写好的功能，所以你原意帮忙的话可以去康康 group.py 和 logger.py*
+*前期将会专注于迁移 nodice1 已经写好的功能，所以原意帮忙的话可以去康康 group.py 和 logger.py*
 
 ### 各模块功能说明
 
