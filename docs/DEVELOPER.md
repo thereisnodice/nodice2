@@ -6,6 +6,18 @@
 
 *前期将会专注于迁移 nodice1 已经写好的功能，所以原意帮忙的话可以去康康 group.py 和 logger.py*
 
+### 简单的架构说明
+
+以掷骰命令 `.r4d6k3` 为例，nonebot2 框架接收到 go-cqhttp 传来的消息，将 `.r4d6k3` 传递给 NoDice 插件。
+
+接着 \_\_init\_\_.py 识别到 `.r` 为 roll_dice 命令 ，将 'strRollDice' 和截取后的表达式传给 utils.py 。
+
+utils.py 分别将两项参数传递给 message.py 和 calculator.py ，再将结果整合传回 \_\_init\_\_.py 。
+
+NoDice 插件再将消息原路返回。
+
+![(](./diagram.svg)
+
 ### 各模块功能说明
 
 #### calculator.py
