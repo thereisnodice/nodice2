@@ -1,0 +1,21 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "nodice",
+            "type": "shell",
+            "command": "cd ./src && nb run",
+            "problemMatcher": [],
+            "group":"build"
+        },
+        {
+            "label": "go-cqhttp",
+            "type": "shell",
+            "command": "cd go-cqhttp && ./go-cqhttp.exe faststart",
+            "problemMatcher": [],
+            "group":"build"
+        }
+    ]
+}
