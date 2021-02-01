@@ -2,15 +2,21 @@
 go-cqhttp
 
 # 配置文件
-.env*
+.env.dev
 
 # python
 __pycache__
 
 # 数据存储
-*.json
-*.db
+data
 
 # 内置牌堆
 !insane.json
 !name.json
+!tarot.json
+
+# 回执文本
+! CustomMsg.json
+
+# 开发脚本
+!tasks.json
