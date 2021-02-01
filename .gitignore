@@ -8,7 +8,7 @@ go-cqhttp
 __pycache__
 
 # 数据存储
-data
+data/*
 
 # 内置牌堆
 !insane.json
@@ -16,7 +16,7 @@ data
 !tarot.json
 
 # 回执文本
-! CustomMsg.json
+!CustomMsg.hjson
 
 # 开发脚本
 !tasks.json

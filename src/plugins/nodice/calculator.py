@@ -4,6 +4,18 @@ import re
 #是否显示运算过程，先丢这儿。
 is_show_detail=True
 
+# 工厂类，负责给 utils.py 调用
+def getCalculator(expression,result=0.0,type=0):
+    #[Base,Coc,Fate,Wod]
+    if type==1:
+        return CocCalculator(expression,result)
+    elif type==2:
+        return FateCalculator(expression,result)
+    elif type==3:
+        return WodCalculator(expression,result)
+    else:
+        return BaseCalculator(expression,result)
+
 # 定义一个类储存表达式、输入、运算过程、结果
 class BaseCalculator:
 
@@ -162,12 +174,12 @@ class BaseCalculator:
         # 返回消息
         message=''
         if roll_reason!='':message+='由于'+roll_reason
-        message+='掷出了:'
         for i in range(round_num):
             calculator.calculate_with_bracket(default_dice)
             message+='\n'+calculator.source
             if is_show_detail:message+='='+calculator.detail
             message+='='+str(int(calculator.result))
+        
         return message
 
 class FateCalculator(BaseCalculator):
