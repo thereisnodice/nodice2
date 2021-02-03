@@ -1,8 +1,13 @@
+# utils.py
+# 工具模块，负责与 __init__.py 交互
+
 import re
 
 from .calculator import getCalculator
 from .message import getGlobalMsg
 from .deck import getDeck
+from .sqlite import select_db
+from .others import get_jrrp,get_rules
 
 # 格式化字符串
 def format_string(origin_str:str,format_para:dict)->str:

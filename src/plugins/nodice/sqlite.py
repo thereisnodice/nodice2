@@ -83,13 +83,26 @@ def insert_db(table_name:str,columns:dict)->bool:
     except:
         return False
 
-def select_db():
-    pass
-
+def select_db(table_name:str,columns:tuple,condition:dict):
+    conn=sqlite3.connect(DB_FILE)
+    cur=conn.cursor()
+    sql="SELECT "
+    for i in columns:
+        if i != columns[0]:sql+=','
+        sql+=i
+    sql+=f' FROM {table_name} WHERE '
+    for i in condition.keys():
+        if i != list(condition.keys())[0]:sql+=','
+        sql+=f"{i} = "
+        if isinstance(condition[i],str):
+            sql+=f'"{condition[i]}"'
+        elif isinstance(condition[i],int):
+            sql+=str(condition[i])
+    cur.execute(sql)
+    return cur.fetchall()[0]
+    conn.close()
 
 if __name__=='__main__':
     create_db()
     print(insert_db('qq_info',{'id':1290541225,'nickname':'jigsaw'}))
-    
-
-
+    print(select_db('qq_info',('nickname',),{'id':1290541225}))

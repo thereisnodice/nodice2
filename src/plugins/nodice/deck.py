@@ -4,10 +4,10 @@ import random
 
 import yaml
 
+from .utils import getCalculator
+
 def getDeck():
     return Deck()
-
-from .utils import getCalculator
 
 deck_path=os.path.join(os.path.dirname(__file__),'data','decks')
 
@@ -65,7 +65,7 @@ class Deck:
         except:num=1
         return '抽到了：\n'+self.get_value(deckname,num,mode)
 
-'''
+
     def get_calculator(self,value):
         l=value[:value.index(']')]
         r=value[value.index(']')+1:]
@@ -74,7 +74,7 @@ class Deck:
         cal=getCalculator(key_sub)
         cal.calculate_with_bracket()
         return l+str(int(cal.result))+r
-''' 
+
 
 # 调试用
 if __name__=='__main__':

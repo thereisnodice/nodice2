@@ -26,6 +26,18 @@ async def _(bot: Bot, event: Event, state: T_State):
                                                     {'pc':event.sender.nickname,
                                                     'res':getDeck().get_value(deck_name)}))
 
+jrrp=on_command("jrrp", priority=5)
+@jrrp.handle()
+async def _(bot: Bot, event: Event, state: T_State):
+    await bot.send(event,format_string(getGlobalMsg('strJrrp'),
+                                                    {'nick':event.sender.nickname,
+                                                    'res':get_jrrp(event.self_id,event.sender.user_id)}))
+rules=on_command("rules", priority=4)
+@rules.handle()
+async def _(bot: Bot, event: Event, state: T_State):
+    rule_name = str(event.get_message()).strip()
+    await bot.send(event,get_rules(event.self_id,rule_name))
+
 
 '''
 group_update=on_message(priority=1)
