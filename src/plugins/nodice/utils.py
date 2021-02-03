@@ -1,5 +1,9 @@
 import re
 
+from .calculator import getCalculator
+from .message import getGlobalMsg
+from .deck import getDeck
+
 # 格式化字符串
 def format_string(origin_str:str,format_para:dict)->str:
     while(origin_str.find('{')>=0):

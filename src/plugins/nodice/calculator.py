@@ -5,16 +5,16 @@ import re
 is_show_detail=True
 
 # 工厂类，负责给 utils.py 调用
-def getCalculator(expression,result=0.0,type=0):
+def getCalculator(expression,type=0):
     #[Base,Coc,Fate,Wod]
     if type==1:
-        return CocCalculator(expression,result)
+        return CocCalculator(expression)
     elif type==2:
-        return FateCalculator(expression,result)
+        return FateCalculator(expression)
     elif type==3:
-        return WodCalculator(expression,result)
+        return WodCalculator(expression)
     else:
-        return BaseCalculator(expression,result)
+        return BaseCalculator(expression)
 
 # 定义一个类储存表达式、输入、运算过程、结果
 class BaseCalculator:
