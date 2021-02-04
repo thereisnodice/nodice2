@@ -10,11 +10,12 @@ from .utils import *
 
 roll_dice = on_command("r", priority=5)
 @roll_dice.handle()
-async def _(bot: Bot, event: Event, state: T_State):
+async def _(bot: Bot, event: Event):
     dice_expression = str(event.get_message()).strip()
     await bot.send(event,format_string(getGlobalMsg('strRollDice'),
                                                     {'pc':event.sender.nickname,
-                                                    'res':getCalculator(dice_expression).extract_roundnum_and_reason(get_defaultdice(event.group_id))}))
+                                                    'res':getCalculator(dice_expression).extract_roundnum_and_reason(
+                                                        get_defaultdice(event.group_id))}))
 set_default_dice= on_command("set", priority=5)
 @set_default_dice.handle()
 async def _(bot:Bot,event:Event):
@@ -32,12 +33,29 @@ async def _(bot: Bot, event: Event, state: T_State):
 '''
 draw_deck=on_command("draw", priority=5)
 @draw_deck.handle()
-async def _(bot: Bot, event: Event, state: T_State):
+async def _(bot: Bot, event: Event):
     deck_name = str(event.get_message()).strip()
     await bot.send(event,format_string(getGlobalMsg('strDrawCard'),
                                                     {'pc':event.sender.nickname,
                                                     'res':getDeck().get_value(deck_name)}))
-
+name=on_command("name",priority=5)
+@name.handle()
+async def _(bot: Bot, event: Event):
+    await bot.send(event,format_string(getGlobalMsg('strNameGenerator'),
+                                                    {'pc':event.sender.nickname,
+                                                    'res':getDeck().get_value('_name_')}))
+template_insane=on_command("ti",priority=5)
+@template_insane.handle()
+async def _(bot: Bot, event: Event):
+    await bot.send(event,format_string(getGlobalMsg('strDrawCard'),
+                                                    {'pc':event.sender.nickname,
+                                                    'res':getDeck().get_value('_即时症状')}))
+template_insane=on_command("li",priority=5)
+@template_insane.handle()
+async def _(bot: Bot, event: Event):
+    await bot.send(event,format_string(getGlobalMsg('strDrawCard'),
+                                                    {'pc':event.sender.nickname,
+                                                    'res':getDeck().get_value('_总结症状')}))
 jrrp=on_command("jrrp", priority=5)
 @jrrp.handle()
 async def _(bot: Bot, event: Event, state: T_State):
