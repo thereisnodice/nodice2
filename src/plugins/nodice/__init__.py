@@ -9,16 +9,28 @@ from nonebot.adapters import Event,Bot
 from .utils import *
 
 roll_dice = on_command("r", priority=5)
-
 @roll_dice.handle()
 async def _(bot: Bot, event: Event, state: T_State):
     dice_expression = str(event.get_message()).strip()
     await bot.send(event,format_string(getGlobalMsg('strRollDice'),
                                                     {'pc':event.sender.nickname,
+                                                    'res':getCalculator(dice_expression).extract_roundnum_and_reason(get_defaultdice(event.group_id))}))
+set_default_dice= on_command("set", priority=5)
+@set_default_dice.handle()
+async def _(bot:Bot,event:Event):
+    default_dice = int(str(event.get_message()).strip())
+    await bot.send(event,str(set_defaultdice(event.group_id,default_dice)))
+
+'''
+roll_hide = on_command("rh", priority=4)
+@roll_hide.handle()
+async def _(bot: Bot, event: Event, state: T_State):
+    dice_expression = str(event.get_message()).strip()
+    await bot.send(event,format_string(getGlobalMsg('strRollHidden'),
+                                                    {'pc':event.sender.nickname,
                                                     'res':getCalculator(dice_expression).extract_roundnum_and_reason(100)}))
-
+'''
 draw_deck=on_command("draw", priority=5)
-
 @draw_deck.handle()
 async def _(bot: Bot, event: Event, state: T_State):
     deck_name = str(event.get_message()).strip()

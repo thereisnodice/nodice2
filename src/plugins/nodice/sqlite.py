@@ -1,9 +1,19 @@
+# sqlite.py
+# 数据库模块，负责与 sqlite3 数据库交互
+
 import sqlite3
 import os
 
 DB_FILE=os.path.join(os.path.dirname(__file__),'data','nodice.db')
 
-def create_db()->bool:
+def py2sql(value)->str:
+    if isinstance(value,str):
+        result=f'"{value}"'
+    elif isinstance(value,int):
+        result=str(value)
+    return result
+
+def create_db():
     conn=sqlite3.connect(DB_FILE)
     cur=conn.cursor()
     # 用户数据
@@ -39,20 +49,19 @@ def create_db()->bool:
                 PRIMARY KEY(qq_id, group_id))''')
     conn.commit()
     conn.close()
-    return True
 
 def update_db(table_name:str,columns:dict,condition:dict)->bool:
     try:
         conn=sqlite3.connect(DB_FILE)
         cur=conn.cursor()
         sql=f"UPDATE {table_name} SET "
-        for i in columns.keys():
+        for i,key in enumerate(columns.keys()):
             if i:sql+=','
-            sql+=f"{i} = {columns[i]}"
+            sql+=f"{key} = {py2sql(columns[key])}"
         sql+=" WHERE "
-        for i in condition.keys():
+        for i,key in enumerate(condition.keys()):
             if i:sql+=','
-            sql+=f"{i} = {condition[i]}"
+            sql+=f"{key} = {py2sql(condition[key])}"
         cur.execute(sql)
         conn.commit()
         conn.close()
@@ -65,16 +74,13 @@ def insert_db(table_name:str,columns:dict)->bool:
         conn=sqlite3.connect(DB_FILE)
         cur=conn.cursor()
         sql=f"INSERT INTO {table_name} ("
-        for i in columns.keys():
-            if i != list(columns.keys())[0]:sql+=','
-            sql+=str(i)
+        for i,key in enumerate(columns.keys()):
+            if i:sql+=','
+            sql+=key
         sql+=') VALUES ('
-        for i in columns.keys():
-            if i != list(columns.keys())[0]:sql+=','
-            if isinstance(columns[i],str):
-                sql+=f'"{columns[i]}"'
-            elif isinstance(columns[i],int):
-                sql+=str(columns[i])
+        for i,key in enumerate(columns.keys()):
+            if i:sql+=','
+            sql+=py2sql(columns[key])
         sql+=')'
         cur.execute(sql)
         conn.commit()
@@ -84,25 +90,38 @@ def insert_db(table_name:str,columns:dict)->bool:
         return False
 
 def select_db(table_name:str,columns:tuple,condition:dict):
-    conn=sqlite3.connect(DB_FILE)
-    cur=conn.cursor()
-    sql="SELECT "
-    for i in columns:
-        if i != columns[0]:sql+=','
-        sql+=i
-    sql+=f' FROM {table_name} WHERE '
-    for i in condition.keys():
-        if i != list(condition.keys())[0]:sql+=','
-        sql+=f"{i} = "
-        if isinstance(condition[i],str):
-            sql+=f'"{condition[i]}"'
-        elif isinstance(condition[i],int):
-            sql+=str(condition[i])
-    cur.execute(sql)
-    return cur.fetchall()[0]
-    conn.close()
+    try:
+        conn=sqlite3.connect(DB_FILE)
+        cur=conn.cursor()
+        sql="SELECT "
+        for i,value in enumerate(columns):
+            if i:sql+=','
+            sql+=value
+        sql+=f' FROM {table_name} WHERE '
+        for i,key in enumerate(condition.keys()):
+            if i:sql+=','
+            sql+=f"{key} = {py2sql(condition[key])}"
+        cur.execute(sql)
+        return cur.fetchall()[0]
+        conn.close()
+    except:
+        return False
+
+def delete_db(table_name:str,condition:dict):
+    try:
+        conn=sqlite3.connect(DB_FILE)
+        cur=conn.cursor()
+        sql=f'DELETE FROM {table_name} WHERE '
+        for i,key in enumerate(condition.keys()):
+            if i:sql+=','
+            sql+=f"{key} = {py2sql(condition[key])}"
+        cur.execute(sql)
+        conn.commit()
+        conn.close()
+        return True
+    except:
+        return False
 
 if __name__=='__main__':
-    create_db()
-    print(insert_db('qq_info',{'id':1290541225,'nickname':'jigsaw'}))
-    print(select_db('qq_info',('nickname',),{'id':1290541225}))
+    print(set_defaultdice(1290541225,60))
+

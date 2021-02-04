@@ -4,7 +4,7 @@ import re
 #是否显示运算过程，先丢这儿。
 is_show_detail=True
 
-# 工厂类，负责给 utils.py 调用
+# 工厂函数，负责给 utils.py 调用
 def getCalculator(expression,type=0):
     #[Base,Coc,Fate,Wod]
     if type==1:
