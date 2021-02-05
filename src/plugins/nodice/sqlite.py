@@ -51,6 +51,7 @@ def create_db():
     conn.close()
 
 def update_db(table_name:str,columns:dict,condition:dict)->bool:
+    create_db()
     try:
         conn=sqlite3.connect(DB_FILE)
         cur=conn.cursor()
@@ -70,6 +71,7 @@ def update_db(table_name:str,columns:dict,condition:dict)->bool:
         return False
 
 def insert_db(table_name:str,columns:dict)->bool:
+    create_db()
     try:
         conn=sqlite3.connect(DB_FILE)
         cur=conn.cursor()
@@ -90,6 +92,7 @@ def insert_db(table_name:str,columns:dict)->bool:
         return False
 
 def select_db(table_name:str,columns:tuple,condition:dict):
+    create_db()
     try:
         conn=sqlite3.connect(DB_FILE)
         cur=conn.cursor()
@@ -108,6 +111,7 @@ def select_db(table_name:str,columns:tuple,condition:dict):
         return False
 
 def delete_db(table_name:str,condition:dict):
+    create_db()
     try:
         conn=sqlite3.connect(DB_FILE)
         cur=conn.cursor()
