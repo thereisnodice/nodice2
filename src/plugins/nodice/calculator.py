@@ -1,36 +1,33 @@
-from email.policy import default
-from math import exp
 import random
 import re
 
-# 工厂函数，负责给 utils.py 调用
-def getCalculator(expression='',type=0,default_dice=100,show_detail=True):
+# 工厂函数
+def getCalculator(expression='',type=0,default_dice=100):
     # [Base,Coc,Fate,Wod,...]
     if type==1:
-        return CocCalculator(expression,default_dice,show_detail)
+        return CocCalculator(expression,default_dice)
     elif type==2:
-        return FateCalculator(expression,default_dice,show_detail)
+        return FateCalculator(expression,default_dice)
     elif type==3:
-        return WodCalculator(expression,default_dice,show_detail)
+        return WodCalculator(expression,default_dice)
     else:
-        return BaseCalculator(expression,default_dice,show_detail)
+        return BaseCalculator(expression,default_dice)
 
 # 表达式异常
 class ExpressionError(RuntimeError):
     def __init__(self,arg):
         self.arg=arg
 
-# 定义一个类储存表达式、输入、运算过程、结果
+# 基础 Calculator 类
 class BaseCalculator:
     result=0.0
     type=0
 
-    def __init__(self,expression='',default_dice=100,show_detail=True):
-        self.expression=expression.upper()
+    def __init__(self,expression='',default_dice=100):
+        self.expression=expression
         self.source=self.expression
         self.detail=self.expression
         self.default_dice=default_dice
-        self.show_detail=show_detail
 
     # 调试用    
     def __str__(self):
@@ -39,11 +36,7 @@ class BaseCalculator:
     # 计算有括号的表达式
     def calculate_with_bracket(self)->None:
         expression=self.expression
-        source=self.source
-        detail=self.detail
-        result=self.result
         default_dice=self.default_dice
-        show_detail=self.show_detail
         type=self.type
         
         if '(' in expression or ')' in expression: 
@@ -53,62 +46,69 @@ class BaseCalculator:
                 expression_in_right=expression[right_bracket_position+1:]
                 left_bracket_position=expression_in_left.rfind('(')
                 if not left_bracket_position<0:
-                    expression_in_left=expression_in_left[:left_bracket_position]
-                    calculator_in_bracket=getCalculator(expression_in_left[left_bracket_position+1:],type,default_dice,show_detail)
+                    calculator_in_bracket=getCalculator(expression_in_left[left_bracket_position+1:],type,default_dice)
                     calculator_in_bracket.calculate_without_bracket()
-                    self=getCalculator(expression_in_left+str(calculator_in_bracket.result)+expression_in_right,type,default_dice,show_detail)
+                    expression_in_left=expression_in_left[:left_bracket_position]
+                    self.expression=expression_in_left+str(int(calculator_in_bracket.result))+expression_in_right
+                    self.detail=expression_in_left+str(calculator_in_bracket.detail)+expression_in_right
                     self.calculate_with_bracket()
                 else:
-                    raise ExpressionError
+                    raise ExpressionError("括号数量错误")
             else:
-                raise ExpressionError
+                raise ExpressionError("括号数量错误")
         else:
             self.calculate_without_bracket()
 
     # 计算无括号的表达式
     def calculate_without_bracket(self):
         expression=self.expression
-        source=self.source
-        detail=self.detail
-        result=self.result
         default_dice=self.default_dice
-        show_detail=self.show_detail
         type=self.type
 
         if '+' in expression:
             plus_position=expression.find('+')
-            calculator_in_left=getCalculator(expression[:plus_position],type,default_dice,show_detail)
-            calculator_in_right=getCalculator(expression[plus_position+1:],type,default_dice,show_detail)
+            calculator_in_left=getCalculator(expression[:plus_position],type,default_dice)
+            calculator_in_right=getCalculator(expression[plus_position+1:],type,default_dice)
             calculator_in_left.calculate_without_bracket()
             calculator_in_right.calculate_without_bracket()
+            self.detail=calculator_in_left.source+'+'+calculator_in_right.source
+            self.detail=calculator_in_left.detail+'+'+calculator_in_right.detail
             self.result=calculator_in_left.result+calculator_in_right.result
         elif '-' in expression:
             plus_position=expression.find('-')
-            calculator_in_left=getCalculator(expression[:plus_position],type,default_dice,show_detail)
-            calculator_in_right=getCalculator(expression[plus_position+1:],type,default_dice,show_detail)
+            calculator_in_left=getCalculator(expression[:plus_position],type,default_dice)
+            calculator_in_right=getCalculator(expression[plus_position+1:],type,default_dice)
             calculator_in_left.calculate_without_bracket()
             calculator_in_right.calculate_without_bracket()
+            self.detail=calculator_in_left.source+'-'+calculator_in_right.source
+            self.detail=calculator_in_left.detail+'-'+calculator_in_right.detail
             self.result=calculator_in_left.result-calculator_in_right.result
         elif '*' in expression:
             plus_position=expression.find('*')
-            calculator_in_left=getCalculator(expression[:plus_position],type,default_dice,show_detail)
-            calculator_in_right=getCalculator(expression[plus_position+1:],type,default_dice,show_detail)
+            calculator_in_left=getCalculator(expression[:plus_position],type,default_dice)
+            calculator_in_right=getCalculator(expression[plus_position+1:],type,default_dice)
             calculator_in_left.calculate_without_bracket()
             calculator_in_right.calculate_without_bracket()
+            self.detail=calculator_in_left.source+'*'+calculator_in_right.source
+            self.detail=calculator_in_left.detail+'*'+calculator_in_right.detail
             self.result=calculator_in_left.result*calculator_in_right.result
         elif '/' in expression:
             plus_position=expression.find('/')
-            calculator_in_left=getCalculator(expression[:plus_position],type,default_dice,show_detail)
-            calculator_in_right=getCalculator(expression[plus_position+1:],type,default_dice,show_detail)
+            calculator_in_left=getCalculator(expression[:plus_position],type,default_dice)
+            calculator_in_right=getCalculator(expression[plus_position+1:],type,default_dice)
             calculator_in_left.calculate_without_bracket()
             calculator_in_right.calculate_without_bracket()
+            self.detail=calculator_in_left.source+'/'+calculator_in_right.source
+            self.detail=calculator_in_left.detail+'/'+calculator_in_right.detail
             self.result=calculator_in_left.result/calculator_in_right.result
         elif '^' in expression:
             plus_position=expression.find('^')
-            calculator_in_left=getCalculator(expression[:plus_position],type,default_dice,show_detail)
-            calculator_in_right=getCalculator(expression[plus_position+1:],type,default_dice,show_detail)
+            calculator_in_left=getCalculator(expression[:plus_position],type,default_dice)
             calculator_in_left.calculate_without_bracket()
+            calculator_in_right=getCalculator(expression[plus_position+1:],type,default_dice)
             calculator_in_right.calculate_without_bracket()
+            self.detail=calculator_in_left.source+'^'+calculator_in_right.source
+            self.detail=calculator_in_left.detail+'^'+calculator_in_right.detail
             self.result=calculator_in_left.result**calculator_in_right.result
         elif re.search(r"([0-9]*)D([0-9]*)(K([0-9]*))?",expression) or expression=='':
             self.throw_dice()
@@ -118,44 +118,55 @@ class BaseCalculator:
     # 掷骰
     def throw_dice(self):
         expression=self.expression
-        source=self.source
-        detail=self.detail
-        result=self.result
         default_dice=self.default_dice
-        show_detail=self.show_detail
-        type=self.type
 
         # 匹配正则
-        match_result=re.search(r"([0-9]*)D([0-9]*)(K([0-9]*))?",self.expression)
+        match_result=re.search(r"([0-9]*)D([0-9]*)(K([0-9]*))?(.*)",expression)
 
         # 获取骰数，获取不到默认为1，超过100或等于0报错
-        try:dice_num=int(match_result.group(1))
-        except:dice_num=1
-        if not dice_num or dice_num>100:return '非法骰数'
+        try:
+            dice_num=int(match_result.group(1))
+        except:
+            dice_num=1
+        if dice_num<=0 or dice_num>100:
+            raise ExpressionError("非法骰数")
 
         # 获取骰面，获取不到默认为100，超过1000或等于0报错
-        try:dice_face=int(match_result.group(2))
-        except:dice_face=default_dice
-        if not dice_face or dice_face>1000:return '非法骰面'
+        try:
+            dice_face=int(match_result.group(2))
+        except:
+            dice_face=default_dice
+        if dice_face <=0 or dice_face>1000:
+            raise ExpressionError('非法骰面')
 
         # 获取有效骰数，获取不到默认为骰数，超过骰数或等于0报错
-        try:dice_pick=int(match_result.group(4))
-        except:dice_pick=dice_num
-        if not dice_pick or dice_pick>dice_num:return '非法有效骰数'
+        try:
+            dice_pick=int(match_result.group(4))
+        except:
+            dice_pick=dice_num
+        if dice_pick <=0 or dice_pick>dice_num:
+            raise ExpressionError('非法有效骰数')
+        
+        try:
+            if match_result.group(5) is not None:
+                raise ExpressionError('非法表达式')
+        except:pass
+
+        # 格式化表达式
+        self.source=f'{dice_num}D{dice_face}'
+        if dice_pick<dice_num:
+            self.source+=f'K{dice_pick}'
 
         # 模拟现实掷骰
         dice_result_list=[]
         for i in range(dice_num):
             dice_result=random.randint(1,dice_face)
             dice_result_list.append(dice_result)
+        
         dice_result_list.sort(reverse=True) #降序排列，为有效骰作准备
 
-        # 消息初始化
-        self.source=str(dice_num)+'D'+str(dice_face)
-        if(dice_pick<dice_num):self.source+='K'+str(dice_pick)
-        self.detail='['
-
         # 统计骰子以及计算过程
+        self.detail='['
         dice_count=0
         for i in range(dice_num):
             if i:self.detail+='+'
@@ -168,363 +179,519 @@ class BaseCalculator:
         self.result=dice_count
 
     # 提取出轮数和掷骰原因
-    def extract_roundnum_and_reason(self):
-        expression=self.expression
-        source=self.source
-        detail=self.detail
-        result=self.result
+    def extract_roundnum_and_reason(self,show_detail=True):
         default_dice=self.default_dice
-        show_detail=self.show_detail
         type=self.type
 
         # 匹配正则
-        match_result=re.search(r"(([0-9]+)#)?([DK0-9\.+\-*/\^\(\)]*)(.*)",self.expression)
+        match_result=re.search(r"(([0-9]+)#)?([dk0-9\.+\-*/\^\(\)]*)(.*)",self.expression)
 
         # 获取轮数，获取不到默认为1，超过10或等于0报错
-        try:round_num=int(match_result.group(2))
-        except:round_num=1
-        if not round_num or round_num>10:raise ExpressionError
+        try:
+            round_num=int(match_result.group(2))
+        except:
+            round_num=1
+        if round_num<=0 or round_num>10:
+            raise ExpressionError("非法轮数")
 
         # 获取表达式
-        expression=match_result.group(3).strip().lower()
+        expression=match_result.group(3).strip().upper()
 
         # 初始化BaseCalculator类
-        calculator=getCalculator(expression,type,default_dice,show_detail)
+        calculator=getCalculator(expression.upper(),type,default_dice)
 
         # 获取掷骰原因，获取不到默认为空
-        try:roll_reason=match_result.group(4).strip()
-        except:roll_reason=''
+        try:
+            self.roll_reason=match_result.group(4).strip()
+        except:
+            self.roll_reason=None
 
         # 返回消息
         message=''
-        if roll_reason!='':message+='由于'+roll_reason
         for i in range(round_num):
             calculator.calculate_with_bracket()
             message+='\n'+calculator.source
-            if self.show_detail:message+='='+calculator.detail
+            if show_detail:
+                message+='='+calculator.detail
             message+='='+str(int(calculator.result))
         return message
+    
+class CocCalculator(BaseCalculator):
+    type=1
 
-class FateCalculator(BaseCalculator):
+    def deal_with_result(self,success_rate:int,success_rule:int)->str:
+        if self.result==100:
+            result=' 大失败'
+        elif self.result==1:
+            result=' 大成功'
+        elif self.result<=success_rate/5:
+            result=' 极难成功'
+        elif self.result<=success_rate/2:
+            result=' 困难成功'
+        elif self.result<=success_rate:
+            result=' 成功'
+        elif self.result<96 or success_rate>=50:
+            result=' 失败'
+        else:
+            result= "大失败"
+        return result
+
+    # 常规检定
+    def roll_check(self,property:dict,success_rule=0):
+        type=self.type
+
+        # 匹配正则3
+        match_result=re.search(r"(([0-9]+)#)?(困难|极难)?([^0-9]*)([0-9]*)(.*)",self.expression)
+
+        # 获取轮数，获取不到默认为1，超过10或等于0报错
+        try:
+            round_num=int(match_result.group(2))
+        except:
+            round_num=1
+        if round_num<=0 or round_num>10:
+            raise ExpressionError("非法轮数")
+        
+        difficulty=match_result.group(3)
+        try:
+            self.attribute=match_result.group(4)
+        except:
+            self.attribute=''
+        try:
+            success_rate=int(match_result.group(5))
+        except:
+            if self.attribute in property.keys():
+                success_rate=property[self.attribute]
+            else:
+                success_rate=0
+        if difficulty=="困难":
+            success_rate=int(success_rate/2)
+        elif difficulty=="极难":
+            success_rate=int(success_rate/5)
+        else:
+            difficulty=''
+        
+        self.attribute=difficulty+self.attribute
+
+        # 返回消息
+        message=''
+        for i in range(round_num):
+            calculator=getCalculator('D100',type)
+            calculator.calculate_with_bracket()
+            message+='\n'+calculator.source 
+            message+='='+str(int(calculator.result))
+            message+='/'+str(success_rate)
+            message+=calculator.deal_with_result(success_rate,success_rule)
+        return message
+
+class FateCalculator:
+    result=0.0
+    type=2
+
+    def __init__(self,expression='',default_dice=100):
+        self.expression=expression
+        self.source=self.expression
+        self.detail=self.expression
+        self.default_dice=default_dice
+
+    # 调试用    
+    def __str__(self):
+        return f'{self.expression},{self.source},{self.detail},{self.result}'
+
+    # 计算有括号的表达式
+    def calculate_with_bracket(self)->None:
+        print('calculate_with_bracket:',self)
+
+        expression=self.expression
+        default_dice=self.default_dice
+        type=self.type
+        
+        if '(' in expression or ')' in expression: 
+            right_bracket_position=expression.find(')')
+            if not right_bracket_position<0:
+                expression_in_left=expression[:right_bracket_position]
+                expression_in_right=expression[right_bracket_position+1:]
+                left_bracket_position=expression_in_left.rfind('(')
+                if not left_bracket_position<0:
+                    calculator_in_bracket=getCalculator(expression_in_left[left_bracket_position+1:],type,default_dice)
+                    calculator_in_bracket.calculate_without_bracket()
+                    expression_in_left=expression_in_left[:left_bracket_position]
+                    self.expression=expression_in_left+str(int(calculator_in_bracket.result))+expression_in_right
+                    self.detail=expression_in_left+str(calculator_in_bracket.detail)+expression_in_right
+                    self.calculate_with_bracket()
+                else:
+                    raise ExpressionError("括号数量错误")
+            else:
+                raise ExpressionError("括号数量错误")
+        else:
+            self.calculate_without_bracket()
 
     # 计算无括号的表达式
     def calculate_without_bracket(self):
+        print('calculate_without_bracket:',self)
 
         expression=self.expression
+        default_dice=self.default_dice
+        type=self.type
+
         if '+' in expression:
-            l=FateCalculator(expression[:expression.index('+')])
-            r=FateCalculator(expression[expression.index('+')+1:])
-            l.calculate_without_bracket()
-            r.calculate_without_bracket()
-            self.result=l.result+r.result
-            if 'D' in l.source or 'D' in r.source:
-                self.source=l.source+'+'+r.source
-                self.detail=l.detail+'+'+r.detail
+            plus_position=expression.find('+')
+            calculator_in_left=getCalculator(expression[:plus_position],type,default_dice)
+            calculator_in_right=getCalculator(expression[plus_position+1:],type,default_dice)
+            calculator_in_left.calculate_without_bracket()
+            calculator_in_right.calculate_without_bracket()
+            self.detail=calculator_in_left.source+'+'+calculator_in_right.source
+            self.detail=calculator_in_left.detail+'+'+calculator_in_right.detail
+            self.result=calculator_in_left.result+calculator_in_right.result
         elif '-' in expression:
-            l=FateCalculator(expression[:expression.index('-')])
-            r=FateCalculator(expression[expression.index('-')+1:])
-            l.calculate_without_bracket()
-            r.calculate_without_bracket()
-            self.result=l.result-r.result
-            if 'D' in l.source or 'D' in r.source:
-                self.source=l.source+'-'+r.source
-                self.detail=l.detail+'-'+r.detail
-        elif re.search(r"([0-9]*)df?",expression) or expression=='':
+            plus_position=expression.find('-')
+            calculator_in_left=getCalculator(expression[:plus_position],type,default_dice)
+            calculator_in_right=getCalculator(expression[plus_position+1:],type,default_dice)
+            calculator_in_left.calculate_without_bracket()
+            calculator_in_right.calculate_without_bracket()
+            self.detail=calculator_in_left.source+'-'+calculator_in_right.source
+            self.detail=calculator_in_left.detail+'-'+calculator_in_right.detail
+            self.result=calculator_in_left.result-calculator_in_right.result
+        elif '*' in expression:
+            plus_position=expression.find('*')
+            calculator_in_left=getCalculator(expression[:plus_position],type,default_dice)
+            calculator_in_right=getCalculator(expression[plus_position+1:],type,default_dice)
+            calculator_in_left.calculate_without_bracket()
+            calculator_in_right.calculate_without_bracket()
+            self.detail=calculator_in_left.source+'*'+calculator_in_right.source
+            self.detail=calculator_in_left.detail+'*'+calculator_in_right.detail
+            self.result=calculator_in_left.result*calculator_in_right.result
+        elif '/' in expression:
+            plus_position=expression.find('/')
+            calculator_in_left=getCalculator(expression[:plus_position],type,default_dice)
+            calculator_in_right=getCalculator(expression[plus_position+1:],type,default_dice)
+            calculator_in_left.calculate_without_bracket()
+            calculator_in_right.calculate_without_bracket()
+            self.detail=calculator_in_left.source+'/'+calculator_in_right.source
+            self.detail=calculator_in_left.detail+'/'+calculator_in_right.detail
+            self.result=calculator_in_left.result/calculator_in_right.result
+        elif '^' in expression:
+            plus_position=expression.find('^')
+            calculator_in_left=getCalculator(expression[:plus_position],type,default_dice)
+            calculator_in_left.calculate_without_bracket()
+            calculator_in_right=getCalculator(expression[plus_position+1:],type,default_dice)
+            calculator_in_right.calculate_without_bracket()
+            self.detail=calculator_in_left.source+'^'+calculator_in_right.source
+            self.detail=calculator_in_left.detail+'^'+calculator_in_right.detail
+            self.result=calculator_in_left.result**calculator_in_right.result
+        elif re.search(r"([0-9]*)D([0-9]*)(K([0-9]*))?",expression) or expression=='':
             self.throw_dice()
         else:
             self.result=float(expression)
 
     # 掷骰
     def throw_dice(self):
+        print('throw_dice:',self)
+
+        expression=self.expression
+        default_dice=self.default_dice
 
         # 匹配正则
-        match_result=re.search(r"([0-9]*)df?",self.expression)
+        match_result=re.search(r"([0-9]*)D([0-9]*)(K([0-9]*))?(.*)",expression)
 
-        # 获取骰数，获取不到默认为4，超过100或等于0报错
-        try:dice_num=int(match_result.group(1))
-        except:dice_num=4
-        if not dice_num or dice_num>100:return '非法骰数'
+        # 获取骰数，获取不到默认为1，超过100或等于0报错
+        try:
+            dice_num=int(match_result.group(1))
+        except:
+            dice_num=1
+        if dice_num<=0 or dice_num>100:
+            raise ExpressionError("非法骰数")
 
-        # FATE的独特骰子
-        fate_dice_list=['-','o','+']
+        # 获取骰面，获取不到默认为100，超过1000或等于0报错
+        try:
+            dice_face=int(match_result.group(2))
+        except:
+            dice_face=default_dice
+        if dice_face <=0 or dice_face>1000:
+            raise ExpressionError('非法骰面')
 
-        # 消息初始化
-        self.source=str(dice_num)+'DF'
+        # 获取有效骰数，获取不到默认为骰数，超过骰数或等于0报错
+        try:
+            dice_pick=int(match_result.group(4))
+        except:
+            dice_pick=dice_num
+        if dice_pick <=0 or dice_pick>dice_num:
+            raise ExpressionError('非法有效骰数')
+
+        if match_result.group(5) != '':
+            raise ExpressionError('非法表达式')
+
+        # 格式化表达式
+        self.source=f'{dice_num}D{dice_face}'
+        if dice_pick<dice_num:
+            self.source+=f'K{dice_pick}'
+
+        # 模拟现实掷骰
+        dice_result_list=[]
+        for i in range(dice_num):
+            dice_result=random.randint(1,dice_face)
+            dice_result_list.append(dice_result)
+        
+        dice_result_list.sort(reverse=True) #降序排列，为有效骰作准备
+
+        # 统计骰子以及计算过程
         self.detail='['
-
-        # 模拟现实掷骰并统计
         dice_count=0
         for i in range(dice_num):
-            if i:self.detail+=' '
-            dice_result=random.randint(-1,1)
-            self.detail+=fate_dice_list[dice_result+1]
-            dice_count+=dice_result
+            if i:self.detail+='+'
+            if i <dice_pick:
+                self.detail+=str(dice_result_list[i])
+                dice_count+=dice_result_list[i]
+            else:
+                self.detail+='('+str(dice_result_list[i])+')'
         self.detail+=']'
         self.result=dice_count
 
     # 提取出轮数和掷骰原因
-    def extract_roundnum_and_reason(self):
-
-        expression=self.expression
+    def extract_roundnum_and_reason(self,show_detail=True):
+        default_dice=self.default_dice
+        type=self.type
 
         # 匹配正则
-        match_result=re.search(r"(([0-9]+)#)?([df0-9\.+\-*/\^\(\)]*)(.*)",expression)
+        match_result=re.search(r"(([0-9]+)#)?([dk0-9\.+\-*/\^\(\)]*)(.*)",self.expression)
 
         # 获取轮数，获取不到默认为1，超过10或等于0报错
-        try:round_num=int(match_result.group(2))
-        except:round_num=1
-        if not round_num or round_num>10:return '非法轮数'
+        try:
+            round_num=int(match_result.group(2))
+        except:
+            round_num=1
+        if round_num<=0 or round_num>10:
+            raise ExpressionError("非法轮数")
 
         # 获取表达式
-        expression=match_result.group(3).strip().lower()
+        expression=match_result.group(3).strip().upper()
 
-        # 初始化Calculator类
-        calculator=FateCalculator(expression)
+        # 初始化BaseCalculator类
+        calculator=getCalculator(expression.upper(),type,default_dice)
 
         # 获取掷骰原因，获取不到默认为空
-        try:roll_reason=match_result.group(4).strip()
-        except:roll_reason=''
+        try:
+            self.roll_reason=match_result.group(4).strip()
+        except:
+            self.roll_reason=None
 
         # 返回消息
         message=''
-        if roll_reason!='':message+='由于'+roll_reason
-        message+='掷出了:'
         for i in range(round_num):
-            calculator.calculate_without_bracket()
+            calculator.calculate_with_bracket()
             message+='\n'+calculator.source
-            if show_detail:message+='='+calculator.detail
+            if show_detail:
+                message+='='+calculator.detail
             message+='='+str(int(calculator.result))
+            message+=calculator.deal_with_result()
         return message
 
-class WodCalculator(BaseCalculator):
+    def deal_with_result(self)->str:
+        return ''
+
+class WodCalculator:
+    result=0.0
+    type=3
+
+    def __init__(self,expression='',default_dice=100):
+        self.expression=expression
+        self.source=self.expression
+        self.detail=self.expression
+        self.default_dice=default_dice
+
+    # 调试用    
+    def __str__(self):
+        return f'{self.expression},{self.source},{self.detail},{self.result}'
+
+    # 计算有括号的表达式
+    def calculate_with_bracket(self)->None:
+        print('calculate_with_bracket:',self)
+
+        expression=self.expression
+        default_dice=self.default_dice
+        type=self.type
+        
+        if '(' in expression or ')' in expression: 
+            right_bracket_position=expression.find(')')
+            if not right_bracket_position<0:
+                expression_in_left=expression[:right_bracket_position]
+                expression_in_right=expression[right_bracket_position+1:]
+                left_bracket_position=expression_in_left.rfind('(')
+                if not left_bracket_position<0:
+                    calculator_in_bracket=getCalculator(expression_in_left[left_bracket_position+1:],type,default_dice)
+                    calculator_in_bracket.calculate_without_bracket()
+                    expression_in_left=expression_in_left[:left_bracket_position]
+                    self.expression=expression_in_left+str(int(calculator_in_bracket.result))+expression_in_right
+                    self.detail=expression_in_left+str(calculator_in_bracket.detail)+expression_in_right
+                    self.calculate_with_bracket()
+                else:
+                    raise ExpressionError("括号数量错误")
+            else:
+                raise ExpressionError("括号数量错误")
+        else:
+            self.calculate_without_bracket()
 
     # 计算无括号的表达式
     def calculate_without_bracket(self):
+        print('calculate_without_bracket:',self)
 
         expression=self.expression
+        default_dice=self.default_dice
+        type=self.type
+
         if '+' in expression:
-            l=WodCalculator(expression[:expression.index('+')])
-            r=WodCalculator(expression[expression.index('+')+1:])
-            l.calculate_without_bracket()
-            r.calculate_without_bracket()
-            self.result=l.result+r.result
-            if 'D' in l.source or 'D' in r.source:
-                self.source=l.source+'+'+r.source
-                self.detail=l.detail+'+'+r.detail
+            plus_position=expression.find('+')
+            calculator_in_left=getCalculator(expression[:plus_position],type,default_dice)
+            calculator_in_right=getCalculator(expression[plus_position+1:],type,default_dice)
+            calculator_in_left.calculate_without_bracket()
+            calculator_in_right.calculate_without_bracket()
+            self.detail=calculator_in_left.source+'+'+calculator_in_right.source
+            self.detail=calculator_in_left.detail+'+'+calculator_in_right.detail
+            self.result=calculator_in_left.result+calculator_in_right.result
         elif '-' in expression:
-            l=WodCalculator(expression[:expression.index('-')])
-            r=WodCalculator(expression[expression.index('-')+1:])
-            l.calculate_without_bracket()
-            r.calculate_without_bracket()
-            self.result=l.result-r.result
-            if 'D' in l.source or 'D' in r.source:
-                self.source=l.source+'-'+r.source
-                self.detail=l.detail+'-'+r.detail
-        elif re.search(r"([0-9]*)a([0-9]*)",expression) or expression=='':
+            plus_position=expression.find('-')
+            calculator_in_left=getCalculator(expression[:plus_position],type,default_dice)
+            calculator_in_right=getCalculator(expression[plus_position+1:],type,default_dice)
+            calculator_in_left.calculate_without_bracket()
+            calculator_in_right.calculate_without_bracket()
+            self.detail=calculator_in_left.source+'-'+calculator_in_right.source
+            self.detail=calculator_in_left.detail+'-'+calculator_in_right.detail
+            self.result=calculator_in_left.result-calculator_in_right.result
+        elif '*' in expression:
+            plus_position=expression.find('*')
+            calculator_in_left=getCalculator(expression[:plus_position],type,default_dice)
+            calculator_in_right=getCalculator(expression[plus_position+1:],type,default_dice)
+            calculator_in_left.calculate_without_bracket()
+            calculator_in_right.calculate_without_bracket()
+            self.detail=calculator_in_left.source+'*'+calculator_in_right.source
+            self.detail=calculator_in_left.detail+'*'+calculator_in_right.detail
+            self.result=calculator_in_left.result*calculator_in_right.result
+        elif '/' in expression:
+            plus_position=expression.find('/')
+            calculator_in_left=getCalculator(expression[:plus_position],type,default_dice)
+            calculator_in_right=getCalculator(expression[plus_position+1:],type,default_dice)
+            calculator_in_left.calculate_without_bracket()
+            calculator_in_right.calculate_without_bracket()
+            self.detail=calculator_in_left.source+'/'+calculator_in_right.source
+            self.detail=calculator_in_left.detail+'/'+calculator_in_right.detail
+            self.result=calculator_in_left.result/calculator_in_right.result
+        elif '^' in expression:
+            plus_position=expression.find('^')
+            calculator_in_left=getCalculator(expression[:plus_position],type,default_dice)
+            calculator_in_left.calculate_without_bracket()
+            calculator_in_right=getCalculator(expression[plus_position+1:],type,default_dice)
+            calculator_in_right.calculate_without_bracket()
+            self.detail=calculator_in_left.source+'^'+calculator_in_right.source
+            self.detail=calculator_in_left.detail+'^'+calculator_in_right.detail
+            self.result=calculator_in_left.result**calculator_in_right.result
+        elif re.search(r"([0-9]*)D([0-9]*)(K([0-9]*))?",expression) or expression=='':
             self.throw_dice()
         else:
             self.result=float(expression)
 
     # 掷骰
     def throw_dice(self):
+        print('throw_dice:',self)
+
+        expression=self.expression
+        default_dice=self.default_dice
 
         # 匹配正则
-        match_result=re.search(r"([0-9]*)a([0-9]*)",self.expression)
+        match_result=re.search(r"([0-9]*)D([0-9]*)(K([0-9]*))?(.*)",expression)
 
         # 获取骰数，获取不到默认为1，超过100或等于0报错
-        try:dice_num=int(match_result.group(1))
-        except:dice_num=1
-        if not dice_num or dice_num>100:return '非法骰数'
+        try:
+            dice_num=int(match_result.group(1))
+        except:
+            dice_num=1
+        if dice_num<=0 or dice_num>100:
+            raise ExpressionError("非法骰数")
 
-        # 获取加骰
-        try:dice_diff=int(match_result.group(2))
-        except:dice_diff=10
-        if dice_diff<5 or dice_diff>10:return '非法加骰'
+        # 获取骰面，获取不到默认为100，超过1000或等于0报错
+        try:
+            dice_face=int(match_result.group(2))
+        except:
+            dice_face=default_dice
+        if dice_face <=0 or dice_face>1000:
+            raise ExpressionError('非法骰面')
 
-        # 消息初始化
-        self.source=str(dice_num)+'A'+str(dice_diff)
-        self.detail=''
+        # 获取有效骰数，获取不到默认为骰数，超过骰数或等于0报错
+        try:
+            dice_pick=int(match_result.group(4))
+        except:
+            dice_pick=dice_num
+        if dice_pick <=0 or dice_pick>dice_num:
+            raise ExpressionError('非法有效骰数')
 
-        # 模拟现实掷骰并统计
+        if match_result.group(5) != '':
+            raise ExpressionError('非法表达式')
+
+        # 格式化表达式
+        self.source=f'{dice_num}D{dice_face}'
+        if dice_pick<dice_num:
+            self.source+=f'K{dice_pick}'
+
+        # 模拟现实掷骰
+        dice_result_list=[]
+        for i in range(dice_num):
+            dice_result=random.randint(1,dice_face)
+            dice_result_list.append(dice_result)
+        
+        dice_result_list.sort(reverse=True) #降序排列，为有效骰作准备
+
+        # 统计骰子以及计算过程
+        self.detail='['
         dice_count=0
-        while dice_num:
-            if dice_count:self.detail+='+'
-            self.detail+='['
-            for i in range(dice_num):
-                dice_result=random.randint(1,10)
-                if i:self.detail+=' '
-                self.detail+=str(dice_result)
-                if dice_result>=dice_diff:dice_num+=1
-                if dice_result>=8:dice_count+=1
-            self.detail+=']'
-            dice_num=dice_num-i-1
-            
+        for i in range(dice_num):
+            if i:self.detail+='+'
+            if i <dice_pick:
+                self.detail+=str(dice_result_list[i])
+                dice_count+=dice_result_list[i]
+            else:
+                self.detail+='('+str(dice_result_list[i])+')'
+        self.detail+=']'
         self.result=dice_count
 
     # 提取出轮数和掷骰原因
-    def extract_roundnum_and_reason(self):
-
-        expression=self.expression
+    def extract_roundnum_and_reason(self,show_detail=True):
+        default_dice=self.default_dice
+        type=self.type
 
         # 匹配正则
-        match_result=re.search(r"(([0-9]+)#)?([a0-9]*)(.*)",expression)
+        match_result=re.search(r"(([0-9]+)#)?([dk0-9\.+\-*/\^\(\)]*)(.*)",self.expression)
 
         # 获取轮数，获取不到默认为1，超过10或等于0报错
-        try:round_num=int(match_result.group(2))
-        except:round_num=1
-        if not round_num or round_num>10:return '非法轮数'
+        try:
+            round_num=int(match_result.group(2))
+        except:
+            round_num=1
+        if round_num<=0 or round_num>10:
+            raise ExpressionError("非法轮数")
 
         # 获取表达式
-        expression=match_result.group(3).strip().lower()
+        expression=match_result.group(3).strip().upper()
 
-        # 初始化WodCalculator类
-        calculator=WodCalculator(expression)
+        # 初始化BaseCalculator类
+        calculator=getCalculator(expression.upper(),type,default_dice)
 
         # 获取掷骰原因，获取不到默认为空
-        try:roll_reason=match_result.group(4).strip()
-        except:roll_reason=''
+        try:
+            self.roll_reason=match_result.group(4).strip()
+        except:
+            self.roll_reason=None
 
         # 返回消息
         message=''
-        if roll_reason!='':message+='由于'+roll_reason
-        message+='掷出了:'
         for i in range(round_num):
-            calculator.calculate_without_bracket()
+            calculator.calculate_with_bracket()
             message+='\n'+calculator.source
-            if is_show_detail:message+='='+calculator.detail
+            if show_detail:
+                message+='='+calculator.detail
             message+='='+str(int(calculator.result))
+            message+=calculator.deal_with_result()
         return message
 
-class CocCalculator(BaseCalculator):
+    def deal_with_result(self)->str:
+        return ''
 
-    # 提取出轮数和掷骰原因
-    def roll_check(self):
-
-        expression=self.expression
-
-        # 匹配正则
-        match_result=re.search(r"(([0-9]+)#)?([^0-9]*)([0-9]*)(.*)",expression)
-
-        # 获取轮数，获取不到默认为1，超过10或等于0报错
-        try:round_num=int(match_result.group(2))
-        except:round_num=1
-        if not round_num or round_num>10:return '非法轮数'
-
-        # 获取表达式
-        attribute=match_result.group(3).strip().lower()
-
-        try:difficulty=int(match_result.group(4).strip())
-        except:difficulty=0
-
-        # 初始化CocCalculator类
-        calculator=CocCalculator('d100')
-
-        # 获取掷骰原因，获取不到默认为空
-        try:roll_reason=match_result.group(5).strip()
-        except:roll_reason=''
-
-        # 返回消息
-        message=''
-        if roll_reason!='':message+='由于'+roll_reason
-        message+='掷出了:'
-        for i in range(round_num):
-            calculator.throw_dice()
-            message+='\n'+calculator.source
-            message+='='+str(int(calculator.result))
-            message+='/'+str(difficulty)
-            if calculator.result==100:
-                message+=' 大失败'
-            elif calculator.result==1:
-                message+=' 大成功'
-            elif calculator.result<=difficulty/5:
-                message+=' 极难成功'
-            elif calculator.result<=difficulty/2:
-                message+=' 困难成功'
-            elif calculator.result<=difficulty:
-                message+=' 成功'
-            elif calculator.result<96 or difficulty>=50:
-                message+=' 失败'
-            else:
-                message+= "大失败"
-        return message
-
-    # 提取出轮数和掷骰原因
-    def develop_check(self):
-
-        expression=self.expression
-
-        # 匹配正则
-        match_result=re.search(r"([^0-9]*)([0-9]*)",expression)
-
-        # 获取表达式
-        attribute=match_result.group(1).strip().lower()
-
-        try:difficulty=int(match_result.group(2).strip())
-        except:difficulty=0
-
-        # 初始化CocCalculator类
-        calculator=CocCalculator('d100')
-
-        # 返回消息
-        message='进行'
-        if attribute!='':message+=attribute
-        message+='成长检定:'
-        calculator.throw_dice()
-        message+=calculator.source
-        message+='='+str(int(calculator.result))
-        message+='/'+str(difficulty)
-        if calculator.result>100 or calculator.result>difficulty:
-            message+=' 失败'
-        else:
-            message+=' 成功'
-            calculator=CocCalculator('d10')
-            calculator.throw_dice()
-            message+=' '+attribute+'增加'
-            message+=calculator.source
-            message+='='+str(int(calculator.result))
-        return message
-
-    # 提取出轮数和掷骰原因
-    def san_check(self):
-
-        expression=self.expression
-
-        # 匹配正则
-        match_result=re.search(r"([d0-9]*)/([d0-9]*)[\s]*([0-9]*)",expression)
-
-        # 获取表达式
-        calculator_success=CocCalculator(match_result.group(1).strip().lower())
-        calculator_fail=CocCalculator(match_result.group(2).strip().lower())
-
-        try:difficulty=int(match_result.group(3).strip())
-        except:difficulty=0
-
-        # 初始化CocCalculator类
-        calculator=CocCalculator('d100')
-
-        # 返回消息
-        message='进行理智检定:'
-        calculator.throw_dice()
-        message+=calculator.source
-        message+='='+str(int(calculator.result))
-        message+='/'+str(difficulty)
-        if calculator.result==100 or (calculator.result>=95 and difficulty<50):
-            message+=' 大失败 理智减少'
-            message+=calculator_fail.expression[calculator_fail.expression.find('d')+1:]
-        elif calculator.result>difficulty:
-            message+=' 失败 理智减少'
-            calculator_fail.throw_dice()
-            message+=calculator_fail.source
-            message+='='+str(int(calculator_fail.result))
-        else:
-            message+=' 成功 理智减少'
-            calculator_success.throw_dice()
-            message+=calculator_success.source
-            message+='='+str(int(calculator_success.result))
-
-        return message
-
-# 调试用
 if __name__=='__main__':
-    while(True):
-        print(BaseCalculator(input()).extract_roundnum_and_reason())
+    print(getCalculator(input(),1).roll_check({'心理学':60}))
