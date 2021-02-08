@@ -72,10 +72,8 @@
     "strRollDiceReason": "{pc}掷骰 {reason}: {res}",
     "strRollHidden": "{pc}进行了一次暗骰",
     "strRollTurn": "{pc}的掷骰轮数: {turn}轮",
-    "strRollMultiDice": "{pc}掷骰{turn}次: {dice_exp}={res}",
-    "strRollMultiDiceReason": "{pc}掷骰{turn}次{reason}: {dice_exp}={res}",
-    "strRollSkill": "{pc}进行{attr}检定：",
-    "strRollSkillReason": "由于{reason} {pc}进行{attr}检定：",
+    "strRollCheck": "{pc}进行{attr}检定：{res}",
+    "strRollCheckReason": "由于{reason} {pc}进行{attr}检定：{res}",
     "strEnRoll": "{pc}的{attr}增强或成长检定：\n{res}", //{attr}在用户省略技能名后替换为{strEnDefaultName}
     "strEnRollNotChange": "{strEnRoll}\n{pc}的{attr}值没有变化",
     "strEnRollFailure": "{strEnRoll}\n{pc}的{attr}变化{change}点，当前为{final}点",

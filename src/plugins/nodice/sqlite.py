@@ -1,15 +1,55 @@
 # sqlite.py
-# 数据库模块，负责与 sqlite3 数据库交互
+# 数据库模块，负责与 sqlite3 交互
 
 import sqlite3
 import os
 
 DB_FILE=os.path.join(os.path.dirname(__file__),'data','nodice.db')
 
+# 默认骰
+def set_defaultdice(group_id:int,default_dice:int)->bool:
+    if(insert_db('group_info',{'id':group_id,'default_dice':default_dice})):
+        return True
+    else:
+        return update_db('group_info',{'default_dice':default_dice},{'id':group_id})
+def get_defaultdice(group_id:int)->int:
+    default_dice=select_db('group_info',('default_dice',),{'id':group_id})
+    if default_dice:
+        return default_dice[0]
+    else:
+        set_defaultdice(group_id,100)
+        return 100
+
+# 昵称
+def set_nickname(qq_id:int,nickname:str)->bool:
+    if(insert_db('qq_info',{'id':qq_id,'nickname':nickname})):
+        return True
+    else:
+        return update_db('qq_info',{'nickname':nickname},{'id':qq_id})
+def get_nickname(qq_id:int,username:str)->str:
+    nickname=select_db('qq_info',('nickname',),{'id':qq_id})
+    if nickname:
+        return nickname[0]
+    else:   
+        return username
+
+# 角色卡属性
+def set_property(owner:int,name:str,property:dict)->bool:
+    if(insert_db('character_card',{'owner':owner,'name':name,'property':str(property)})):
+        return True
+    else:
+        return update_db('character_card',{'property':str(property)},{'owner':owner,'name':name})
+def get_property(owner:int,name:str):
+    property=select_db('character_card',('property',),{'owner':owner,'name':name})
+    if property:
+        return eval(property[0])
+    else:
+        return {}
+
 def py2sql(value)->str:
     if isinstance(value,str):
         result=f'"{value}"'
-    elif isinstance(value,int):
+    else:
         result=str(value)
     return result
 
@@ -61,7 +101,7 @@ def update_db(table_name:str,columns:dict,condition:dict)->bool:
             sql+=f"{key} = {py2sql(columns[key])}"
         sql+=" WHERE "
         for i,key in enumerate(condition.keys()):
-            if i:sql+=','
+            if i:sql+=' AND '
             sql+=f"{key} = {py2sql(condition[key])}"
         cur.execute(sql)
         conn.commit()
@@ -102,7 +142,7 @@ def select_db(table_name:str,columns:tuple,condition:dict):
             sql+=value
         sql+=f' FROM {table_name} WHERE '
         for i,key in enumerate(condition.keys()):
-            if i:sql+=','
+            if i:sql+=' AND '
             sql+=f"{key} = {py2sql(condition[key])}"
         cur.execute(sql)
         return cur.fetchall()[0]
@@ -117,7 +157,7 @@ def delete_db(table_name:str,condition:dict):
         cur=conn.cursor()
         sql=f'DELETE FROM {table_name} WHERE '
         for i,key in enumerate(condition.keys()):
-            if i:sql+=','
+            if i:sql+=' AND '
             sql+=f"{key} = {py2sql(condition[key])}"
         cur.execute(sql)
         conn.commit()
@@ -127,5 +167,7 @@ def delete_db(table_name:str,condition:dict):
         return False
 
 if __name__=='__main__':
-    print(set_defaultdice(1290541225,60))
+    print(set_property(1290541225,'default',{'斗殴':80}))
+    print(get_nickname(1290541225,'jigsaw'))
+    print(get_property(1290541225,'default'))
 
