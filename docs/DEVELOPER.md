@@ -99,12 +99,26 @@ TO DO
 
 工具模块，负责给__init__.py提供接口以便调用其他函数。
 
-#### \_\_init\_\_.py  
+#### nb.py
 
-主模块，所有命令都写在这里。
+适配 nonebot
 
-### Notes
+#### nb2.py
 
-1. 不知道为什么会把 `[` 转义成奇怪的编码，经低调佬指点得知是 get_message 的问题，需要再 extract_plain_text() 才行。
+适配 nonebot2
 
-2. 突然发现自己写 format_message 的时候留下了一个致命的 bug ：只要在带原因的指令中将原因写成 {reason} ，nodice 就会在这一步无限递归，锁死 nb 。
+#### constant.py
+
+储存第一次运行时需要释放的数据
+
+### Bug
+
+- 突然发现自己写 format_message 的时候留下了一个致命的 bug ：只要在带原因的指令中将原因写成 {reason} ，nodice 就会在这一步无限递归，锁死 nb 。
+
+### Note
+
+*已修复的 Bug 会被丢到这来。*
+
+1. 写 [TRPGLogger](https://github.com/thereisnodice/TRPGLogger) 的时候发现我一直以来都把数据储存在插件文件夹里，这对于使用 `git clone` 来下载插件的人没有什么问题，但是一旦有人使用 pypi 来下载插件，数据便会被存储到 python 的 site-package 里，导致挂载在同一台计算机上的 bot 共享数据。
+
+2. 不知道为什么会把 `[` 转义成奇怪的编码，经低调佬指点得知是 get_message 的问题，需要再 extract_plain_text 才行。

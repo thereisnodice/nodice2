@@ -140,7 +140,7 @@ pip install -r requirements.txt
 
 再次运行 go-cqhttp
 
-### 配置 nonebot2
+#### 配置 nonebot2
 
 ```
 nb run

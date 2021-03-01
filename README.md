@@ -8,13 +8,10 @@
 [![License](https://img.shields.io/github/license/thereisnodice/nodice2)](LICENSE)
 ![Python Version](https://img.shields.io/badge/python-3.7+-blue.svg)
 ![NoneBot Version](https://img.shields.io/badge/nonebot-2+-red.svg)
-![OneBot Version](https://img.shields.io/badge/OneBot-v11-black)
 
 </div>
 
 ### Features
-
-由于 nonebot2 框架的一些特性，本插件对 Dice! 的诸多功能进行了一定程度的拆分与集成，不过基本框架应该是不会变的。
 
 **以下功能排列不分优先级：**
 
@@ -31,21 +28,21 @@
 - [ ] 骰主绑定 `.master`
 - [ ] 全局管理 `.admin`
 - [ ] 自定义帮助词条 `.helpdoc`
-- [ ] 自定义回执文本 `.setstr`
+- [x] 自定义回执文本 `.setstr`
 
 #### 掷骰模块（核心）
 
 - [x] 标准掷骰 `.r(h) 4#3d6k2+5 reason`
 - [x] 设置默认骰 `.set`
-- [ ] COC 检定 `.ra(h)`
-- [ ] COC 房规 `.setcoc`
+- [x] COC 检定 `.ra`
+- [x] COC 房规 `.setcoc`
 - [ ] DND 先攻 `.ri` 
 - [ ] 先攻列表 `.init`
-- [x] FATE 掷骰 `.rf`
-- [x] WOD 骰池 `.w(w)`
-- [ ] COC 理智检定 `.sc`
-- [ ] COC 成长检定 `.en`
-- [ ] COC 奖惩骰 `.rb/p`
+- [ ] FATE 掷骰 `.rf`
+- [ ] WOD 骰池 `.w(w)`
+- [x] COC 理智检定 `.sc`
+- [x] COC 成长检定 `.en`
+- [x] COC 奖惩骰 `.rb/p`
 
 #### 牌堆模块
 
@@ -80,8 +77,8 @@
 
 ### Thanks
 
-- @w4123 溯洄，Dice! 的主要开发者与 Dice3 的开发者，本项目命令格式大部分借鉴自其。
-- @mystringEmpty Dice! 的另一名主要开发者。
+- [w4123](https://github.com/w4123) ，Dice! 的主要开发者与 Dice3 的开发者。
+- [mystringEmpty](https://github.com/mystringEmpty) Dice! 的另一名主要开发者。
 
 ### Nothing useful
 
