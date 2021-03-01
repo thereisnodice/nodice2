@@ -15,7 +15,7 @@ load_const()
 nodice_r = on_command("r", priority=5)
 @nodice_r.handle()
 async def _(bot: Bot, event: Event):
-    dice_expression = str(event.get_message()).strip()
+    dice_expression = event.get_message().extract_plain_text().strip()
     if isinstance(event,PrivateMessageEvent):
         cal=getCalculator(dice_expression)
         data={'pc':get_nickname(event.sender.user_id,event.sender.nickname),
@@ -35,7 +35,7 @@ async def _(bot: Bot, event: Event):
 nodice_rh = on_command("rh", priority=4)
 @nodice_rh.handle()
 async def _(bot: Bot, event: Event):
-    dice_expression = str(event.get_message()).strip()
+    dice_expression = event.get_message().extract_plain_text().strip()
     if isinstance(event,PrivateMessageEvent):
         cal=getCalculator(dice_expression)
         data={'pc':get_nickname(event.sender.user_id,event.sender.nickname),
@@ -59,13 +59,13 @@ async def _(bot: Bot, event: Event):
 nodice_set= on_command("set", priority=5)
 @nodice_set.handle()    
 async def _(bot:Bot,event:Event):
-    default_dice = int(str(event.get_message()).strip())
+    default_dice = int(event.get_message().extract_plain_text().strip())
     await bot.send(event,str(set_defaultdice(event.group_id,default_dice)))
 
 nodice_rf = on_command("rf", priority=4)
 @nodice_rf.handle()
 async def _(bot: Bot, event: Event):
-    dice_expression = str(event.get_message()).strip()
+    dice_expression = event.get_message().extract_plain_text().strip()
     await bot.send(event,format_string(getGlobalMsg('strRollDice'),
                                                     {'pc':get_nickname(event.sender.user_id,event.sender.nickname),
                                                     'res':getCalculator(dice_expression,2).extract_roundnum_and_reason()}))
@@ -73,7 +73,7 @@ async def _(bot: Bot, event: Event):
 nodice_w = on_command("w", priority=4)
 @nodice_w.handle()
 async def _(bot: Bot, event: Event):
-    dice_expression = str(event.get_message()).strip()
+    dice_expression = event.get_message().extract_plain_text().strip()
     await bot.send(event,format_string(getGlobalMsg('strRollDice'),
                                                     {'pc':get_nickname(event.sender.user_id,event.sender.nickname),
                                                     'res':getCalculator(dice_expression,3).extract_roundnum_and_reason()}))
@@ -81,7 +81,7 @@ async def _(bot: Bot, event: Event):
 nodice_rarc=on_command(('ra','rc'),priority=4)
 @nodice_rarc.handle()
 async def _(bot:Bot,event:Event):
-    dice_expression = str(event.get_message()).strip()
+    dice_expression = event.get_message().extract_plain_text().strip()
     cal=getCalculator(dice_expression,1)
     await bot.send(event,format_string(getGlobalMsg('strRollCheck'),
                                                     {'pc':get_nickname(event.sender.user_id,event.sender.nickname),
@@ -91,7 +91,7 @@ async def _(bot:Bot,event:Event):
 nodice_sc=on_command('sc',priority=4)
 @nodice_sc.handle()
 async def _(bot:Bot,event:Event):
-    dice_expression = str(event.get_message()).strip()
+    dice_expression = event.get_message().extract_plain_text().strip()
     cal=getCalculator(dice_expression,1)
     await bot.send(event,format_string(getGlobalMsg('strRollCheck'),
                                                     {'pc':get_nickname(event.sender.user_id,event.sender.nickname),
@@ -103,7 +103,7 @@ async def _(bot:Bot,event:Event):
 nodice_draw=on_command("draw", priority=5)
 @nodice_draw.handle()
 async def _(bot: Bot, event: Event):
-    deck_name = str(event.get_message()).strip()
+    deck_name = event.get_message().extract_plain_text().strip()
     await bot.send(event,format_string(getGlobalMsg('strDrawCard'),
                                                     {'pc':get_nickname(event.sender.user_id,event.sender.nickname),
                                                     'res':getDeck().get_value(deck_name)}))
@@ -141,7 +141,7 @@ async def _(bot: Bot, event: Event):
 nodice_rules=on_command("rules", priority=4)
 @nodice_rules.handle()
 async def _(bot: Bot, event: Event):
-    rule_name = str(event.get_message()).strip()
+    rule_name = event.get_message().extract_plain_text().strip()
     await bot.send(event,get_rules(event.self_id,rule_name))
 
 
@@ -161,13 +161,13 @@ async def _(bot:Bot,event:Event):
 nodice_nn=on_command("nn",priority=2)
 @nodice_nn.handle()
 async def _(bot:Bot,event:Event):
-    nickname = str(event.get_message()).strip()
+    nickname = event.get_message().extract_plain_text().strip()
     set_nickname(event.sender.user_id,nickname)
 
 nodice_setstr=on_command("setstr",priority=3)
 @nodice_setstr.handle()
 async def _(bot:Bot,event:Event):
-    value = str(event.get_message()).split()
+    value = event.get_message().extract_plain_text().split()
     setGlobalMsg(value[0],value[1])
 
 '''
