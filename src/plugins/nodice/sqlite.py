@@ -4,7 +4,7 @@
 import sqlite3
 import os
 
-DB_FILE=os.path.join(os.path.dirname(__file__),'data','nodice.db')
+DB_FILE=os.path.join('data','nodice','nodice.db')
 
 # 默认骰
 def set_defaultdice(group_id:int,default_dice:int)->bool:

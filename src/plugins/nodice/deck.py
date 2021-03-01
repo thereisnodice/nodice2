@@ -9,7 +9,7 @@ from .utils import getCalculator
 def getDeck():
     return Deck()
 
-deck_path=os.path.join(os.path.dirname(__file__),'data','decks')
+deck_path=os.path.join('data/nodice/deck')
 
 class Deck:
     def get_deck_list(self):
