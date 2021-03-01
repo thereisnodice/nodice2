@@ -220,27 +220,114 @@ class CocCalculator(BaseCalculator):
     type=1
 
     def deal_with_result(self,success_rate:int,success_rule:int)->str:
-        if self.result==100:
-            result=' 大失败'
-        elif self.result==1:
-            result=' 大成功'
-        elif self.result<=success_rate/5:
-            result=' 极难成功'
-        elif self.result<=success_rate/2:
-            result=' 困难成功'
-        elif self.result<=success_rate:
-            result=' 成功'
-        elif self.result<96 or success_rate>=50:
-            result=' 失败'
-        else:
-            result= "大失败"
+        if success_rule==0:
+            if self.result==100:
+                result='{strFumble}'
+            elif self.result==1:
+                result='{strCriticalSuccess}'
+            elif self.result<=success_rate/5:
+                result='{strExtremeSuccess}'
+            elif self.result<=success_rate/2:
+                result='{strHardSuccess}'
+            elif self.result<=success_rate:
+                result='{strSuccess}'
+            elif self.result<96 or success_rate>=50:
+                result='{strFailure}'
+            else:
+                result='{strFumble}'
+        elif success_rule==1:
+            if self.result==100:
+                result='{strFumble}'
+            elif self.result==1 or self.result<=5 and success_rate >=50 :
+                result='{strCriticalSuccess}'
+            elif self.result<=success_rate/5:
+                result='{strExtremeSuccess}'
+            elif self.result<=success_rate/2:
+                result='{strHardSuccess}'
+            elif self.result<=success_rate:
+                result='{strSuccess}'
+            elif self.result<96 or success_rate>=50:
+                result='{strFailure}'
+            else:
+                result= '{strFumble}'
+        elif success_rule==2:
+            if self.result==100:
+                result='{strFumble}'
+            elif self.result<=5 and self.result<=success_rate :
+                result='{strCriticalSuccess}'
+            elif self.result<=success_rate/5:
+                result='{strExtremeSuccess}'
+            elif self.result<=success_rate/2:
+                result='{strHardSuccess}'
+            elif self.result<=success_rate:
+                result='{strSuccess}'
+            elif self.result<96:
+                result='{strFailure}'
+            else:
+                result='{strFumble}'
+        elif success_rule==3:
+            if self.result>=96:
+                result='{strFumble}'
+            elif self.result<=5:
+                result='{strCriticalSuccess}'
+            elif self.result<=success_rate/5:
+                result='{strExtremeSuccess}'
+            elif self.result<=success_rate/2:
+                result='{strHardSuccess}'
+            elif self.result<=success_rate:
+                result='{strSuccess}'
+            else:
+                result='{strFailure}'
+        elif success_rule==4:
+            if self.result==100:
+                result='{strFumble}'
+            elif self.result<=5 and self.result<=success_rate/10 :
+                result='{strCriticalSuccess}'
+            elif self.result<=success_rate/5:
+                result='{strExtremeSuccess}'
+            elif self.result<=success_rate/2:
+                result='{strHardSuccess}'
+            elif self.result<=success_rate:
+                result='{strSuccess}'
+            elif  self.result<96+success_rate/10 or success_rate>=50:
+                result='{strFailure}'
+            else:
+                result= '{strFumble}'
+        elif success_rule==5:
+            if self.result>=99:
+                result='{strFumble}'
+            elif self.result<=2 and self.result<=success_rate/10 :
+                result='{strCriticalSuccess}'
+            elif self.result<=success_rate/5:
+                result='{strExtremeSuccess}'
+            elif self.result<=success_rate/2:
+                result='{strHardSuccess}'
+            elif self.result<=success_rate:
+                result='{strSuccess}'
+            elif  self.result<96 or success_rate>=50:
+                result='{strFailure}'
+            else:
+                result= '{strFumble}'
+        elif success_rule==6:
+            if self.result>success_rate:
+                if self.result==100 or self.result % 11 ==0:
+                    result='{strFumble}'
+                else:
+                    result='{strFailure}'
+            else:
+                if self.result==1 or self.result % 11==0:
+                    result='{strCriticalSuccess}'
+                else:
+                    result='{strSuccess}'
+        else: 
+            return IndexError
         return result
 
     # 常规检定
     def roll_check(self,property:dict,success_rule=0):
         type=self.type
 
-        # 匹配正则3
+        # 匹配正则
         match_result=re.search(r"(([0-9]+)#)?(困难|极难)?([^0-9]*)([0-9]*)(.*)",self.expression)
 
         # 获取轮数，获取不到默认为1，超过10或等于0报错
@@ -281,6 +368,45 @@ class CocCalculator(BaseCalculator):
             message+='='+str(int(calculator.result))
             message+='/'+str(success_rate)
             message+=calculator.deal_with_result(success_rate,success_rule)
+        return message
+
+    # 理智检定
+    def san_check(self,property:dict,success_rule=0):
+        type=self.type
+
+        # 匹配正则
+        match_result=re.search(r"([d0-9]*)/([d0-9]*)[\s]*([0-9]*)",self.expression)
+
+        # 成功与失败时的表达式
+        calculator_success=CocCalculator(match_result.group(1).strip().lower())
+        calculator_fail=CocCalculator(match_result.group(2).strip().lower())
+        
+        try:
+            success_rate=int(match_result.group(3))
+        except:
+            if '理智' in property.keys():
+                success_rate=property['理智']
+            else:
+                success_rate=0
+
+        # 返回消息
+        message=''
+        calculator=getCalculator('D100',type)
+        calculator.throw_dice()
+        message+='\n'+calculator.source 
+        message+='='+str(int(calculator.result))
+        message+='/'+str(success_rate)
+        success_level=calculator.deal_with_result(success_rate,success_rule)
+        message+=success_level
+        if success_level=='{strSuccess}':
+            message+=calculator_fail.expression[calculator_fail.expression.find('d')+1:]
+        elif success_level=='{strFailure}':
+            message+=' 失败 理智减少'
+            calculator_fail.throw_dice()
+            message+=calculator_fail.source
+            message+='='+str(int(calculator_fail.result))
+        elif success_level=='{strFumble}':
+            message+=calculator_fail.expression[calculator_fail.expression.find('d')+1:]
         return message
 
 class FateCalculator:
