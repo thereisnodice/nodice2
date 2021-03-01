@@ -1,24 +1,15 @@
 ### TO DO List
 
 - `.admin update` `.admin reload`
-- `.r`
 - `.bot on/off` `.dismiss`
-
-*前期将会专注于迁移 nodice1 已经写好的功能，所以原意帮忙的话可以去康康 group.py 和 logger.py*
 
 ### 简单的架构说明
 
-以掷骰命令 `.r4d6k3` 为例，nonebot2 框架接收到 go-cqhttp 传来的消息，将 `.r4d6k3` 传递给 NoDice 插件。
-
-接着 \_\_init\_\_.py 识别到 `.r` 为 roll_dice 命令 ，将 'strRollDice' 和截取后的表达式传给 utils.py 。
-
-utils.py 分别将两项参数传递给 message.py 和 calculator.py ，再将结果整合传回 \_\_init\_\_.py 。
-
-NoDice 插件再将消息原路返回。
-
-![(](./diagram.svg)
+TO DO
 
 ### 各模块功能说明
+
+*以下说明已不可靠，请直接看源码或者等待更新。*
 
 #### calculator.py
 
@@ -112,8 +103,8 @@ NoDice 插件再将消息原路返回。
 
 主模块，所有命令都写在这里。
 
-#### lua.py  
-
-Dice! 2.5 整出来的新活，看心情复刻。
-
 ### Notes
+
+1. 不知道为什么会把 `[` 转义成奇怪的编码，经低调佬指点得知是 get_message 的问题，需要再 extract_plain_text() 才行。
+
+2. 突然发现自己写 format_message 的时候留下了一个致命的 bug ：只要在带原因的指令中将原因写成 {reason} ，nodice 就会在这一步无限递归，锁死 nb 。
