@@ -6,7 +6,7 @@
         {
             "label": "nodice",
             "type": "shell",
-            "command": "cd ./src && nb run",
+            "command": "cd ./nodice && nb run",
             "problemMatcher": [],
             "group":"build"
         },
