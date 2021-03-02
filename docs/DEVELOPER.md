@@ -1,11 +1,12 @@
-### TO DO List
+### 简单的结构说明
 
-- `.admin update` `.admin reload`
-- `.bot on/off` `.dismiss`
+首先是前端，负责与 nonebot1、nonebot2 交互的 nb.py、nb2.py，还有用于测试的 test.py
 
-### 简单的架构说明
+接着是 command.py ，所有命令的基本实现在此完成
 
-TO DO
+然后是后端，各个模块通过 exchange.py 互相调用， 涉及多个模块的函数将放在 utils.py
+
+比较特殊的是 constant.py 直接被前端调用而不经过 utils.py 与 command.py
 
 ### 各模块功能说明
 
@@ -115,10 +116,24 @@ TO DO
 
 - 突然发现自己写 format_message 的时候留下了一个致命的 bug ：只要在带原因的指令中将原因写成 {reason} ，nodice 就会在这一步无限递归，锁死 nb 。
 
-### Note
+### Bug(fix)
 
 *已修复的 Bug 会被丢到这来。*
 
 1. 写 [TRPGLogger](https://github.com/thereisnodice/TRPGLogger) 的时候发现我一直以来都把数据储存在插件文件夹里，这对于使用 `git clone` 来下载插件的人没有什么问题，但是一旦有人使用 pypi 来下载插件，数据便会被存储到 python 的 site-package 里，导致挂载在同一台计算机上的 bot 共享数据。
 
 2. 不知道为什么会把 `[` 转义成奇怪的编码，经低调佬指点得知是 get_message 的问题，需要再 extract_plain_text 才行。
+
+### Note
+
+第一轮重构(1.18-1.31)：即从 nb 迁移到 nb2 的重构，将项目重新整合成一个插件
+
+第二轮重构(2.1-2.28)：使用类似 Dice3 的 module->utils->\_\_init\_\_ 结构
+
+第三轮重构(3.1-)：使用 module->exchange->command->nb2->\_\_init\_\_ 结构
+
+### Nothing useful
+
+本项目旨在用 python 移植 CQ原生插件 Dice! ~~（虽然本项目的架构更像是 Dice3）~~。
+
+之所以取名 NoDice ，是因为一开始只是想要把 Dice的感叹号移到前面来，也就是 NotDice ，刚好可以把组织名取作 `this is not dice` 来玩双关。接着因为本项目基于 nonebot 框架，就想取个相近的名字，而 not 和 none 就只有 no 这两个字相同了，组织名刚好也能玩双关，只是意思从“这不是骰子”变成了“这里没有骰子”~~（当然我更喜欢翻译为无骰骑士异闻录）~~。
