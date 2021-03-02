@@ -1,5 +1,5 @@
-# nonebot.py
-# 负责与 Nonebot 交互
+# nb.py
+# 负责与 nonebot 交互
 
 from nonebot import on_command, CommandSession
 from nonebot.adapters import Event,Bot

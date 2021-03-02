@@ -4,7 +4,7 @@ import random
 
 import yaml
 
-from .utils import getCalculator
+from .exchange import getCalculator
 
 def getDeck():
     return Deck()

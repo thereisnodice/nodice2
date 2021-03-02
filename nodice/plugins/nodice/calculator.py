@@ -1,3 +1,6 @@
+# calculator.py
+# 很明显是计算核心，也是 Dice 的基础功能
+
 import random
 import re
 
