@@ -5,7 +5,7 @@ from .exchange import *
 
 # 命令函数一律命名为 nodice_command
 
-def r(message:str,**kargs)->str:
+def command_r(message:str,**kargs)->str:
     if not 'group_id' in kargs.keys():
         cal=getCalculator(message)
         data={'pc':get_nickname(kargs['user_id'],kargs['nickname']),
@@ -22,16 +22,35 @@ def r(message:str,**kargs)->str:
     else:
         return format_string(getGlobalMsg('strRollDice'),data)
 
-def help(message:str)->str:
+def command_help(message:str)->str:
     result=getHelpDoc(message)
     if getHelpDoc(message):
         return result
     else:
         return getGlobalMsg('strHlpMsg')
 
-def dismiss()->str:
+def command_dismiss()->str:
     result=getGlobalMsg('strDismiss')
     return result
+
+def command_bot(message:str,**kargs)->str:
+    if kargs['group_id']:bot_on=get_boton(kargs['group_id'])
+    if message=='':
+        result='NoDice by Jigsaw Ver 0.1.0-alpha'+getGlobalMsg('strBotMsg')
+    elif message=='on':
+        if bot_on:
+            result=getGlobalMsg('strBotOnAlready')
+        else:
+            set_boton(kargs['group_id'],True)
+            result=getGlobalMsg('strBotOn')
+    elif message=='off':
+        if bot_on:
+            set_boton(kargs['group_id'],False)
+            result=getGlobalMsg('strBotOff')
+        else:
+            result=getGlobalMsg('strBotOffAlready')
+    return result
+
 '''
 def nodice_rh(message:str,**kargs)->str:
     if not 'group_id' in kargs.keys():

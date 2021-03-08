@@ -296,7 +296,7 @@ CustomMsg=r'''{
 	"strFriendDenyNotUser":"很遗憾，你没有对{self}使用指令的记录",
 	"strFriendDenyNoTrust":"很遗憾，你不是{self}信任的用户，如需使用可联系{master_QQ}",
 	"strAddFriendWhiteQQ":"{strAddFriend}", //白名单用户添加好友时回复此句
-    "strAddFriend":"欢迎选择{strSelfName}的免费掷骰服务！\n.help协议 确认服务协议\n.help指令 查看指令列表\n.help设定 确认骰娘设定\n.help链接 查看源码文档\n使用服务默认已经同意服务协议", //同意添加好友时额外发送的语句
+  "strAddFriend":"欢迎选择{strSelfName}的免费掷骰服务！\n.help协议 确认服务协议\n.help指令 查看指令列表\n.help设定 确认骰娘设定\n.help链接 查看源码文档\n使用服务默认已经同意服务协议", //同意添加好友时额外发送的语句
 	"strAddGroup":"欢迎选择{strSelfName}的免费掷骰服务！\n请使用.dismiss QQ号（或后四位） 使{self}退群退讨论组\n.bot on/off QQ号（或后四位） //开启或关闭指令\n.group +/-禁用回复 //禁用或启用回复\n.help协议 确认服务协议\n.help指令 查看指令列表\n.help设定 确认骰娘设定\n.help链接 查看源码文档\n邀请入群默认视为同意服务协议，知晓禁言或移出的后果", 
 	"strNewMaster":"试问，你就是{strSelfName}的Master√\n请认真阅读当前版本Master手册以及用户手册。请注意版本号对应: https://v2docs.kokona.tech\f{strSelfName}默认开启对群移出、禁言、刷屏事件的监听，如要关闭请手动调整；\n请注意云黑系统默认开启，如无需此功能请关闭CloudBlackShare；",
 	"strNewMasterPublic":"{strSelfName}初始化开启公骰模式：\n自动开启BelieveDiceList响应来自骰娘列表的warning；\n公骰模式默认同意有掷骰记录用户的好友邀请，如要改为同意任何人请使用.admin AllowStranger=2；\n已开启黑名单自动清理，拉黑时及每日定时会自动清理与黑名单用户的共同群聊，黑名单用户群权限不低于自己时自动退群；\n已开启拉黑群时连带邀请人；\n已启用send功能接收用户发送的消息；",

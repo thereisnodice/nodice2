@@ -6,6 +6,19 @@ import os
 
 DB_FILE=os.path.join('data','nodice','nodice.db')
 
+def set_boton(group_id:int,bot_on:bool)->bool:
+    if(insert_db('group_info',{'id':group_id,'bot_on':1 if bot_on else 0})):
+        return True
+    else:
+        return update_db('group_info',{'bot_on':1 if bot_on else 0},{'id':group_id})
+def get_boton(group_id:int)->bool:
+    bot_on=select_db('group_info',('bot_on',),{'id':group_id})
+    if bot_on[0] is not None:
+        return True if bot_on[0] else False
+    else:
+        set_boton(group_id,True)
+        return True
+
 # 默认骰
 def set_defaultdice(group_id:int,default_dice:int)->bool:
     if(insert_db('group_info',{'id':group_id,'default_dice':default_dice})):
@@ -165,9 +178,3 @@ def delete_db(table_name:str,condition:dict):
         return True
     except:
         return False
-
-if __name__=='__main__':
-    print(set_property(1290541225,'default',{'斗殴':80}))
-    print(get_nickname(1290541225,'jigsaw'))
-    print(get_property(1290541225,'default'))
-

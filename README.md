@@ -19,8 +19,8 @@
 
 - [x] 帮助文档 `.help`
 - [x] 退群指令 `.dismiss`
-- [ ] 版本信息 `.bot`
-- [ ] 骰子开关 `.bot on/off`
+- [x] 版本信息 `.bot`
+- [x] 骰子开关 `.bot on/off`
 - [ ] 集成群管 `.group`
 - [ ] 授权许可 `.authorize`
 - [ ] 发送消息 `.send`

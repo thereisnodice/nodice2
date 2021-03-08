@@ -19,13 +19,21 @@ nodice_help=on_command("help", priority=5)
 @nodice_help.handle()
 async def _(bot: Bot, event: Event):
     message = event.get_message().extract_plain_text().strip()
-    await bot.send(event,help(message))
+    await bot.send(event,command_help(message))
 
 nodice_dismiss=on_command("dismiss", priority=5)
 @nodice_dismiss.handle()
 async def _(bot: Bot, event: Event):
-    # await bot.send(event,dismiss())
+    # await bot.send(event,command_dismiss())
     await bot.set_group_leave(group_id=event.group_id)
+    
+nodice_bot=on_command("bot", priority=5)
+@nodice_bot.handle()
+async def _(bot: Bot, event: Event):
+    message = event.get_message().extract_plain_text().strip()
+    group_id=None
+    if not isinstance(event,PrivateMessageEvent):group_id=event.group_id
+    await bot.send(event,command_bot(message,group_id=group_id))
 
 nodice_r = on_command("r", priority=5)
 @nodice_r.handle()
@@ -35,7 +43,7 @@ async def _(bot: Bot, event: Event):
     nickname=event.sender.nickname
     group_id=None
     if not isinstance(event,PrivateMessageEvent):group_id=event.group_id
-    await bot.send(event,r(message,user_id=user_id,nickname=nickname,group_id=group_id))
+    await bot.send(event,command_r(message,user_id=user_id,nickname=nickname,group_id=group_id))
 
 nodice_rh = on_command("rh", priority=4)
 @nodice_rh.handle()
