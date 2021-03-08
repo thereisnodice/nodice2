@@ -21,6 +21,17 @@ def r(message:str,**kargs)->str:
         return format_string(getGlobalMsg('strRollDiceReason'),data)
     else:
         return format_string(getGlobalMsg('strRollDice'),data)
+
+def help(message:str)->str:
+    result=getHelpDoc(message)
+    if getHelpDoc(message):
+        return result
+    else:
+        return getGlobalMsg('strHlpMsg')
+
+def dismiss()->str:
+    result=getGlobalMsg('strDismiss')
+    return result
 '''
 def nodice_rh(message:str,**kargs)->str:
     if not 'group_id' in kargs.keys():

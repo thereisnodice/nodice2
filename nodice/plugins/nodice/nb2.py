@@ -1,7 +1,7 @@
 # nb2.py
 # 负责与 nonebot2 交互
 
-from nonebot import on_command
+from nonebot import on_command,on_request
 from nonebot.adapters.cqhttp import Event,Bot,PrivateMessageEvent
 
 from .command import * 
@@ -10,7 +10,23 @@ load_const()
 
 # 命令一律命名为 nodice_command
 
-# 掷骰模块
+accept_req=on_request()
+@accept_req.handle()
+async def _(bot: Bot, event: Event):
+    await event.approve(bot)
+
+nodice_help=on_command("help", priority=5)
+@nodice_help.handle()
+async def _(bot: Bot, event: Event):
+    message = event.get_message().extract_plain_text().strip()
+    await bot.send(event,help(message))
+
+nodice_dismiss=on_command("dismiss", priority=5)
+@nodice_dismiss.handle()
+async def _(bot: Bot, event: Event):
+    # await bot.send(event,dismiss())
+    await bot.set_group_leave(group_id=event.group_id)
+
 nodice_r = on_command("r", priority=5)
 @nodice_r.handle()
 async def _(bot: Bot, event: Event):

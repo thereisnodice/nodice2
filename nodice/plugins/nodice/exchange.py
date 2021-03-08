@@ -8,3 +8,4 @@ from .sqlite import *
 from .others import *
 from .character import *
 from .constant import *
+from .help import *

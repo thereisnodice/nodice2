@@ -17,8 +17,8 @@
 
 **以下功能排列不分优先级：**
 
-- [ ] 帮助文档 `.help`
-- [ ] 退群指令  `.dismiss`
+- [x] 帮助文档 `.help`
+- [x] 退群指令 `.dismiss`
 - [ ] 版本信息 `.bot`
 - [ ] 骰子开关 `.bot on/off`
 - [ ] 集成群管 `.group`
@@ -57,5 +57,5 @@
 
 ### Thanks
 
-- [w4123](https://github.com/w4123) ，Dice! 的主要开发者与 Dice3 的开发者。
+- [w4123](https://github.com/w4123) aka 溯洄，Dice! 的主要开发者与 Dice3 的开发者。
 - [mystringEmpty](https://github.com/mystringEmpty) Dice! 的另一名主要开发者。
