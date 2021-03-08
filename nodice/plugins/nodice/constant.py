@@ -3,33 +3,35 @@
 
 import os
 
-DATA_PATH="data/nodice"
+DATA_PATH = "data/nodice"
 
-def load_const()->None:
-    if not os.path.exists('data'):
-        os.mkdir('data')
-    if not os.path.exists('data/nodice'):
-        os.mkdir('data/nodice')
-    
-    if not os.path.exists('data/nodice/deck'):
-        os.mkdir('data/nodice/deck')
-    if not os.path.exists('data/nodice/CustomMsg.hjson'):
-        with open('data/nodice/CustomMsg.hjson','w',encoding='utf-8') as f:
+
+def load_const() -> None:
+    if not os.path.exists("data"):
+        os.mkdir("data")
+    if not os.path.exists("data/nodice"):
+        os.mkdir("data/nodice")
+
+    if not os.path.exists("data/nodice/deck"):
+        os.mkdir("data/nodice/deck")
+    if not os.path.exists("data/nodice/CustomMsg.hjson"):
+        with open("data/nodice/CustomMsg.hjson", "w", encoding="utf-8") as f:
             f.write(CustomMsg)
-    if not os.path.exists('data/nodice/HelpDoc.hjson'):
-        with open('data/nodice/HelpDoc.hjson','w',encoding='utf-8') as f:
-            f.write(HelpDoc)        
-    if not os.path.exists('data/nodice/deck/insane.json'):
-        with open('data/nodice/deck/insane.json','w',encoding='utf-8') as f:
+    if not os.path.exists("data/nodice/HelpDoc.hjson"):
+        with open("data/nodice/HelpDoc.hjson", "w", encoding="utf-8") as f:
+            f.write(HelpDoc)
+    if not os.path.exists("data/nodice/deck/insane.json"):
+        with open("data/nodice/deck/insane.json", "w", encoding="utf-8") as f:
             f.write(insane)
-    if not os.path.exists('data/nodice/deck/name.json'):
-        with open('data/nodice/deck/name.json','w',encoding='utf-8') as f:
+    if not os.path.exists("data/nodice/deck/name.json"):
+        with open("data/nodice/deck/name.json", "w", encoding="utf-8") as f:
             f.write(name)
-    if not os.path.exists('data/nodice/deck/tarot.json'):
-        with open('data/nodice/deck/tarot.json','w',encoding='utf-8') as f:
+    if not os.path.exists("data/nodice/deck/tarot.json"):
+        with open("data/nodice/deck/tarot.json", "w", encoding="utf-8") as f:
             f.write(tarot)
 
-CustomMsg=r'''{
+
+CustomMsg = r"""{
 	"strParaEmpty":"参数不能为空×", //偷懒用万能回复
 	"strParaIllegal":"参数非法×", //偷懒用万能回复
 	"stranger":"用户", //{nick}无法获取非空昵称时的称呼
@@ -306,9 +308,9 @@ CustomMsg=r'''{
 	"self":"&strSelfCall",
 	"strBotMsg":"\n使用.help更新 查看{self}更新内容",
 	"strHlpMsg":"请使用.dismiss QQ号（或后四位） 使{self}退群退讨论组\n.bot on/off QQ号（或后四位） //开启或关闭指令\n.help协议 确认服务协议\n.help指令 查看指令列表\n.help群管 查看群管指令\n.help设定 确认骰娘设定\n.help链接 查看源码文档\n官方论坛: https://forum.kokona.tech/\n论坛导航贴: https://kokona.tech"
-}'''
+}"""
 
-HelpDoc=r'''{
+HelpDoc = r"""{
 	"更新":"\n575:设置自我响应\n574:默认骰机制优化\n573:角色卡机制优化\n572:允许脚本读写角色卡\n571:更新框架，允许多开\n570:允许.lua脚本自定义指令\n569:.rc/.draw暗骰暗抽\n568:.deck自定义牌堆重做\n567:敏感词检测\n566:.help查询建议\n565:.log日志记录\n564:多功能优化，牌数牌堆等\n563:优化指令帮助\n562:新增GUI\n559:远程更新插件/不良记录\n557:定时作业系统\n554:新增多角色卡功能\n551:文件夹批量读取牌堆\n550:允许多轮检定\n549:新增刷屏监测",
 	"协议":"0.本协议是Dice!默认服务协议。如果你看到了这句话，意味着Master应用默认协议，请注意。\n1.邀请骰娘、使用掷骰服务和在群内阅读此协议视为同意并承诺遵守此协议，否则请使用.dismiss移出骰娘。\n2.不允许禁言、移出骰娘或刷屏掷骰等对骰娘的不友善行为，这些行为将会提高骰娘被制裁的风险。开关骰娘响应请使用.bot on/off。\n3.骰娘默认邀请行为已事先得到群内同意，因而会自动同意群邀请。因擅自邀请而使骰娘遭遇不友善行为时，邀请者因未履行预见义务而将承担连带责任。\n4.禁止将骰娘用于赌博及其他违法犯罪行为。\n5.对于设置敏感昵称等无法预见但有可能招致言论审查的行为，骰娘可能会出于自我保护而拒绝提供服务\n6.由于技术以及资金原因，我们无法保证机器人100%的时间稳定运行，可能不定时停机维护或遭遇冻结，但是相应情况会及时通过各种渠道进行通知，敬请谅解。临时停机的骰娘不会有任何响应，故而不会影响群内活动，此状态下仍然禁止不友善行为。\n7.对于违反协议的行为，骰娘将视情况终止对用户和所在群提供服务，并将不良记录共享给其他服务提供方。黑名单相关事宜可以与服务提供方协商，但最终裁定权在服务提供方。\n8.本协议内容随时有可能改动。请注意帮助信息、签名、空间、官方群等处的骰娘动态。\n9.骰娘提供掷骰服务是完全免费的，欢迎投食。\n10.本服务最终解释权归服务提供方所有。",
 	"链接":"Dice!论坛导航贴: https://kokona.tech \n Dice!论坛: https://forum.kokona.tech",
@@ -408,9 +410,9 @@ HelpDoc=r'''{
 	"溯洄":"孕育万千骰娘生机之母，萌妹吃鱼之神，正五棱双角锥体对的监护人，一切诡秘的窥见者，拟人者主宰，时空舞台外的逆流者，永转的命运之轮",
 	"投喂":"&投食",
 	"投食": "投食Shiki，请选择https://afdian.net/@dice_shiki\n投食溯洄，可选择https://afdian.net/@suhuiw4123\n投食{self}，可选择……充超会？"
-}'''
+}"""
 
-insane=r'''{
+insane = r"""{
     "_即时症状":
      ["1) 失忆 : 调查员会发现自己只记得最后身处的安全地点，却没有任何来到这里的记忆。例如，调查员前一刻还在家中吃着早饭，下一刻就已经直面着不知名的怪物。这将会持续[1d10]轮。",
       "2) 假性残疾 : 调查员陷入了心理性的失明，失聪以及躯体缺失感中，持续[1d10]轮。",
@@ -635,9 +637,9 @@ insane=r'''{
       "98) 臆盲症（Typhlomania）: 病理性的失明。",
       "99) 嗜外狂（Xenomania）: 痴迷于异国的事物。",
       "100) 喜兽癖（Zoomania）: 对待动物的态度近乎疯狂地友好。"]
-}'''
+}"""
 
-name=r'''{
+name = r"""{
     "_name":["{%_name_cn}","{%_name_en}","{%_name_jp}"],
     "_name cn": ["{%_中文姓}{%_中文名}"],
     "_name en": ["{%_英语名}·{%_英语姓}"],
@@ -1855,9 +1857,9 @@ name=r'''{
       "拓実",   "暖",     "直树",   "哲平",   "碧人",   "优斗",   "勇翔",   "悠雅",   "悠介",   "悠希",   "悠月",
       "悠马",   "阳人",   "璃空",   "琉雅",   "琉斗",   "龙希",   "龙成",   "龙星",   "亮太",   "莲斗",   "和真",
       "翔大",   "飒一",   "飒人"]
-}'''
+}"""
 
-tarot=r'''{
+tarot = r"""{
   "_塔罗牌":["【0】愚者",    "【1】魔术师", "【2】女祭司", "【3】女皇",  "【4】皇帝",      "【5】教皇",
             "【6】恋人",    "【7】战车",   "【8】力量",   "【9】隐者",  "【10】命运之轮", "【11】正义",
             "【12】倒吊人", "【13】死神",  "【14】节制",  "【15】恶魔", "【16】塔",       "【17】星星",
@@ -1925,4 +1927,4 @@ tarot=r'''{
     ["\n起因: {_塔罗牌} {%_正逆}\n现状: {_塔罗牌} {%_正逆}\n未来: {_塔罗牌} {%_正逆}\n对策: {_塔罗牌} {%_正逆}\n周遭: {_塔罗牌} {%_正逆}\n态度: {_塔罗牌} {%_正逆}\n结果: {_塔罗牌} {%_正逆}"],
   "凯尔特十字牌阵":
     ["\n问题现状: {_塔罗牌} {%_正逆}\n障碍助力: {_塔罗牌} {%_正逆}\n理想状况: {_塔罗牌} {%_正逆}\n基础条件: {_塔罗牌} {%_正逆}\n过去状况: {_塔罗牌} {%_正逆}\n未来发展: {_塔罗牌} {%_正逆}\n自身现状: {_塔罗牌} {%_正逆}\n周围环境: {_塔罗牌} {%_正逆}\n希望恐惧: {_塔罗牌} {%_正逆}\n最终结果: {_塔罗牌} {%_正逆}"]
-}'''
+}"""

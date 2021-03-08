@@ -5,53 +5,63 @@ from .exchange import *
 
 # 命令函数一律命名为 nodice_command
 
-def command_r(message:str,**kargs)->str:
-    if not 'group_id' in kargs.keys():
-        cal=getCalculator(message)
-        data={'pc':get_nickname(kargs['user_id'],kargs['nickname']),
-              'res':cal.extract_roundnum_and_reason(),
-              'reason':cal.roll_reason}
+
+def command_r(message: str, **kargs) -> str:
+    if not "group_id" in kargs.keys():
+        cal = getCalculator(message)
+        data = {
+            "pc": get_nickname(kargs["user_id"], kargs["nickname"]),
+            "res": cal.extract_roundnum_and_reason(),
+            "reason": cal.roll_reason,
+        }
     else:
-        cal=getCalculator(message,0,get_defaultdice(kargs['group_id']))
-        data={'pc':get_nickname(kargs['user_id'],kargs['nickname']),
-              'res':cal.extract_roundnum_and_reason(),
-              'reason':cal.roll_reason}
+        cal = getCalculator(message, 0, get_defaultdice(kargs["group_id"]))
+        data = {
+            "pc": get_nickname(kargs["user_id"], kargs["nickname"]),
+            "res": cal.extract_roundnum_and_reason(),
+            "reason": cal.roll_reason,
+        }
 
     if cal.roll_reason:
-        return format_string(getGlobalMsg('strRollDiceReason'),data)
+        return format_string(getGlobalMsg("strRollDiceReason"), data)
     else:
-        return format_string(getGlobalMsg('strRollDice'),data)
+        return format_string(getGlobalMsg("strRollDice"), data)
 
-def command_help(message:str)->str:
-    result=getHelpDoc(message)
+
+def command_help(message: str) -> str:
+    result = getHelpDoc(message)
     if getHelpDoc(message):
         return result
     else:
-        return getGlobalMsg('strHlpMsg')
+        return getGlobalMsg("strHlpMsg")
 
-def command_dismiss()->str:
-    result=getGlobalMsg('strDismiss')
+
+def command_dismiss() -> str:
+    result = getGlobalMsg("strDismiss")
     return result
 
-def command_bot(message:str,**kargs)->str:
-    if kargs['group_id']:bot_on=get_boton(kargs['group_id'])
-    if message=='':
-        result='NoDice by Jigsaw Ver 0.1.0-alpha'+getGlobalMsg('strBotMsg')
-    elif message=='on':
+
+def command_bot(message: str, **kargs) -> str:
+    if kargs["group_id"]:
+        bot_on = get_boton(kargs["group_id"])
+    if message == "":
+        result = "NoDice by Jigsaw Ver 0.1.0-alpha" + getGlobalMsg("strBotMsg")
+    elif message == "on":
         if bot_on:
-            result=getGlobalMsg('strBotOnAlready')
+            result = getGlobalMsg("strBotOnAlready")
         else:
-            set_boton(kargs['group_id'],True)
-            result=getGlobalMsg('strBotOn')
-    elif message=='off':
+            set_boton(kargs["group_id"], True)
+            result = getGlobalMsg("strBotOn")
+    elif message == "off":
         if bot_on:
-            set_boton(kargs['group_id'],False)
-            result=getGlobalMsg('strBotOff')
+            set_boton(kargs["group_id"], False)
+            result = getGlobalMsg("strBotOff")
         else:
-            result=getGlobalMsg('strBotOffAlready')
+            result = getGlobalMsg("strBotOffAlready")
     return result
 
-'''
+
+"""
 def nodice_rh(message:str,**kargs)->str:
     if not 'group_id' in kargs.keys():
         cal=getCalculator(message)
@@ -177,4 +187,4 @@ def _(bot:Bot,event:Event):
 
 def _(bot:Bot,event:Event):
     value = event.get_message().extract_plain_text().split()
-    setGlobalMsg(value[0],value[1])'''
+    setGlobalMsg(value[0],value[1])"""
