@@ -1,15 +1,14 @@
 [tool.poetry]
-name = "nodice"
-version = "0.1.0"
+name = "nodice2"
+version = "2.0.0-alpha"
 description = "Dicebot on qq"
 authors = ["Jigsaw <j1g5aw@foxmail.com>"]
 license = "AGPLv3"
 
 [tool.poetry.dependencies]
-python = "^3.7"
-nonebot2 = "^2.0.0-alpha.10"
-nb-cli = "^0.3.2"
-PyYAML = "^5.4.1"
+python = "^3.7.3"
+nonebot2 = "^2.0.0-alpha.11"
+nonebot-plugin-manager = "^0.1.0.post1"
 hjson = "^3.0.2"
 
 [build-system]
