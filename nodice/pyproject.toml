@@ -8,8 +8,12 @@ license = "AGPLv3"
 [tool.poetry.dependencies]
 python = "^3.7.3"
 nonebot2 = "^2.0.0-alpha.11"
-nonebot-plugin-manager = "^0.1.0.post1"
-hjson = "^3.0.2"
+nonebot-plugin-manager = "^0.3.8.post1"
+nonebot-plugin-trpglogger = "^0.2.0"
+
+[nonebot.plugins]
+plugins = ["nonebot_plugin_manager", "nonebot_plugin_trpglogger"]
+plugin_dirs = ["plugins"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
