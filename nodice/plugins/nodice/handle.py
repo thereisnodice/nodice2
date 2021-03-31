@@ -17,7 +17,7 @@ def handle_r(message: str, **kargs) -> str:
             "reason": cal.reason,
         }
     else:
-        cal = Calculator(message, 0, get_defaultdice(kargs["group_id"]))
+        cal = Calculator(message, get_defaultdice(kargs["group_id"]))
         data = {
             "pc": get_nickname(kargs["user_id"], kargs["nickname"]),
             "res": cal.run(),

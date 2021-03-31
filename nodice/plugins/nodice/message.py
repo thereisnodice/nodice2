@@ -2,9 +2,6 @@ import os
 
 import hjson
 
-from .calculator import ExpressionError
-
-
 def setGlobalMsg(key: str, value):
     with open("data/nodice/CustomMsg.hjson", "r", encoding="utf-8") as f:
         CustomMsg = hjson.loads(f.read())
