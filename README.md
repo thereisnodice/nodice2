@@ -5,27 +5,24 @@
 
 *基于 [nonebot2](https://github.com/nonebot/nonebot2)以及 [go-cqhttp](https://github.com/Mrs4s/go-cqhttp) 的QQ跑团掷骰机器人*
 
+Demo：[Dr.Sink](https://wpa.qq.com/msgrd?v=3&uin=1351483470&site=qq&menu=yes)
+
 [![License](https://img.shields.io/github/license/thereisnodice/nodice2)](LICENSE)
-![Python Version](https://img.shields.io/badge/python-3.7+-blue.svg)
-![NoneBot Version](https://img.shields.io/badge/nonebot-2+-red.svg)
+![Python Version](https://img.shields.io/badge/python-3.7.+-blue.svg)
+![NoneBot Version](https://img.shields.io/badge/nonebot-2.0.0a11+-red.svg)
 
 </div>
 
 ### Commands
 
-*目前正在进行第三轮重构，所有功能都暂时无法使用。*
-
 **以下功能排列不分优先级：**
 
 - [x] 帮助文档 `.help`
 - [x] 退群指令 `.dismiss`
-- [x] 版本信息 `.bot`
-- [x] 骰子开关 `.bot on/off`
-- [ ] 集成群管 `.group`
-- [ ] 授权许可 `.authorize`
-- [ ] 发送消息 `.send`
+- [ ] 版本信息 `.bot`
+- [ ] 骰子开关 `.bot on/off`
 - [ ] 规则速查 `.rules`
-- [ ] 标准掷骰 `.r`
+- [x] 标准掷骰 `.r`
 - [ ] 跑团记录 `.log`
 - [ ] 旁观模式 `.ob`
 - [ ] 设置默认骰 `.set`
@@ -45,7 +42,15 @@
 - [ ] 随机姓名 `.name`
 - [ ] 今日人品 `.jrrp`
 - [ ] 欢迎词 `.welcome`
+
+*以下功能将**永远**不会移植：*
+
 - [ ] 第三人称动作 `.me `
+- [ ] 集成群管 `.group`
+- [ ] 授权许可 `.authorize`
+- [ ] 发送消息 `.send`
+
+[为什么不移植这些功能](./docs/DEVELOPER.md)
 
 ### Developer
 
