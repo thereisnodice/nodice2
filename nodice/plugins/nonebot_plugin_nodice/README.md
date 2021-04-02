@@ -1,15 +1,11 @@
-<div align="center">
-	<img width="128" src="docs/nodice.png" alt="logo"></br>
+# Nonebot Plugin NoDice
 
-# NoDice2
-
-*基于 [nonebot2](https://github.com/nonebot/nonebot2)以及 [go-cqhttp](https://github.com/Mrs4s/go-cqhttp) 的QQ跑团掷骰机器人*
-
-Demo：[Dr.Sink](https://wpa.qq.com/msgrd?v=3&uin=1351483470&site=qq&menu=yes)
+*适用于 [nonebot2](https://github.com/nonebot/nonebot2) 的QQ跑团掷骰插件*
 
 [![License](https://img.shields.io/github/license/thereisnodice/nodice2)](LICENSE)
-![Python Version](https://img.shields.io/badge/python-3.7.+-blue.svg)
+![Python Version](https://img.shields.io/badge/python-3.7.3+-blue.svg)
 ![NoneBot Version](https://img.shields.io/badge/nonebot-2.0.0a11+-red.svg)
+![Pypi Version](https://img.shields.io/pypi/v/nonebot-plugin-nodice.svg)
 
 </div>
 
@@ -23,7 +19,6 @@ Demo：[Dr.Sink](https://wpa.qq.com/msgrd?v=3&uin=1351483470&site=qq&menu=yes)
 - [ ] 骰子开关 `.bot on/off`
 - [ ] 规则速查 `.rules`
 - [x] 标准掷骰 `.r`
-- [x] 跑团记录 `.log`
 - [ ] 旁观模式 `.ob`
 - [ ] 设置默认骰 `.set`
 - [ ] 人物作成 `.coc/dnd`
@@ -50,11 +45,7 @@ Demo：[Dr.Sink](https://wpa.qq.com/msgrd?v=3&uin=1351483470&site=qq&menu=yes)
 - [ ] 授权许可 `.authorize`
 - [ ] 发送消息 `.send`
 
-[为什么不移植这些功能](./docs/DEVELOPER.md#某些功能不会移植的原因)
-
-### Developer
-
-[开发文档](./docs/DEVELOPER.md)
+[为什么不移植这些功能](../../../docs/DEVELOPER.md#某些功能不会移植的原因)
 
 ### License
 

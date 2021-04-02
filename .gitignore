@@ -3,10 +3,11 @@ go-cqhttp
 
 # 配置文件
 .env.dev
-poetry.lock
 
 # python
 __pycache__
+dist
+poetry.lock
 
 # 数据存储
 data
