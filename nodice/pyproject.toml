@@ -11,9 +11,10 @@ nonebot2 = "2.0.0-alpha.11"
 nonebot-adapter-cqhttp = "^2.0.0a11.post2"
 nonebot-plugin-manager = "^0.3.8.post1"
 nonebot-plugin-trpglogger = "^0.2.0"
+nonebot-plugin-cocdicer = "^0.1.4"
 
 [nonebot.plugins]
-plugins = ["nonebot_plugin_manager", "nonebot_plugin_trpglogger"]
+plugins = ["nonebot_plugin_manager", "nonebot_plugin_trpglogger","nonebot-plugin-cocdicer"]
 plugin_dirs = ["plugins"]
 
 [build-system]
