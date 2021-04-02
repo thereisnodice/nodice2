@@ -4,9 +4,6 @@ import random
 
 import httpx
 
-# from .utils import select_db
-
-
 def get_jrrp(bot_qq_id, qq_id, is_online=True):
     if is_online:
         return get_jrrp_online(bot_qq_id, qq_id)

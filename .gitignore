@@ -3,6 +3,7 @@ go-cqhttp
 
 # 配置文件
 .env.dev
+poetry.lock
 
 # python
 __pycache__
@@ -11,4 +12,5 @@ __pycache__
 data
 
 # 闭源插件
-csu_class
+/nodice/plugins/*
+!/nodice/plugins/nonebot_plugin_nodice/
