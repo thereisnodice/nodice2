@@ -14,7 +14,7 @@ nonebot-plugin-trpglogger = "^0.2.0"
 nonebot-plugin-cocdicer = "^0.1.4"
 
 [nonebot.plugins]
-plugins = ["nonebot_plugin_manager", "nonebot_plugin_trpglogger","nonebot-plugin-cocdicer"]
+plugins = ["nonebot_plugin_manager", "nonebot_plugin_trpglogger","nonebot_plugin_cocdicer"]
 plugin_dirs = ["plugins"]
 
 [build-system]
