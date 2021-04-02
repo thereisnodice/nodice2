@@ -53,9 +53,7 @@ class Calculator:
         return result
 
     def __str__(self):
-        return (
-            f"{self.source} = {self.detail if self.show_detail else ''} = {int(self.result)}"
-        )
+        return f"{self.source} = {self.detail if self.show_detail else ''} = {int(self.result)}"
 
     def new(
         self,

@@ -21,7 +21,7 @@ Demo：[Dr.Sink](https://wpa.qq.com/msgrd?v=3&uin=1351483470&site=qq&menu=yes)
 - [x] 退群指令 `.dismiss`
 - [ ] 版本信息 `.bot`
 - [ ] 骰子开关 `.bot on/off`
-- [ ] 规则速查 `.rules`
+- [x] 规则速查 `.rules`
 - [x] 标准掷骰 `.r`
 - [x] 跑团记录 `.log`
 - [ ] 旁观模式 `.ob`
@@ -40,7 +40,7 @@ Demo：[Dr.Sink](https://wpa.qq.com/msgrd?v=3&uin=1351483470&site=qq&menu=yes)
 - [ ] 拓展牌堆 `.draw`
 - [ ] 分群牌堆 `.deck`
 - [ ] 随机姓名 `.name`
-- [ ] 今日人品 `.jrrp`
+- [x] 今日人品 `.jrrp`
 - [ ] 欢迎词 `.welcome`
 
 *以下功能将**永远**不会移植：*
