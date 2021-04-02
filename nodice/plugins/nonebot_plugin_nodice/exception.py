@@ -1,2 +1,0 @@
-class DiceException(Exception):
-    pass

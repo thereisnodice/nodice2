@@ -14,4 +14,3 @@ data
 
 # 闭源插件
 /nodice/plugins/*
-!/nodice/plugins/nonebot_plugin_nodice/
