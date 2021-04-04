@@ -7,9 +7,9 @@ license = "AGPL-3.0"
 
 [tool.poetry.dependencies]
 python = "^3.7.3"
-nonebot2 = "^2.0.0-alpha.11"
-nonebot-adapter-cqhttp = "^2.0.0a11.post2"
-nonebot-plugin-manager = "^0.3.8.post1"
+nonebot2 = {git = "git@github.com:nonebot/nonebot2.git", rev = "dev"}
+nonebot-adapter-cqhttp = "^2.0.0a12"
+nonebot-plugin-manager = "^0.3.12"
 nonebot-plugin-trpglogger = "^0.2.0"
 nonebot-plugin-nodice = {path = "./plugins/nonebot_plugin_nodice", develop = true}
 
