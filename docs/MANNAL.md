@@ -1,8 +1,26 @@
 # 部署指南
 
+**poetry 导致的 nonebot2 版本问题**
+
+如果你是使用 poerty 管理机器人的话（如果你是按照部署指南来部署的话那就肯定是），请自行进入虚拟环境使 nonebot2 与 nonebot-adapter-cqhttp 处于较为稳定的版本搭配。
+
+以下是两种较为稳定的版本搭配：
+
+```
+nonebot2==2.0.0a11
+nonebot-adapter-cqhttp==2.0.0a11.post2
+```
+
+或
+
+```
+nonebot2==2.0.0a13.post1
+nonebot-adapter-cqhttp==2.0.0a12
+```
+
 ### 快速开始 (Windows)
 
-确保你已经下载并安装了 [Git](https://git-scm.com/) 和 [Python3.7+](https://www.python.org/).
+确保你已经下载并安装了 [Git](https://git-scm.com/) 和 [Python](https://www.python.org/).
 
 为了压缩仓库大小，本项目不再内置 go-cqhttp，请自行下载 [go-cqhttp](https://github.com/Mrs4s/go-cqhttp/releases)
 
@@ -10,8 +28,8 @@
 
 ```
 git clone git@github.com:thereisnodice/nodice2.git
-cd nodice2
-pip install -r requirements.txt
+cd nodice2/nodice/
+poetry install
 ```
 
 接着，在 nodice2 目录创建 `go-cqhttp` 文件夹（当然你也可以把 go-cqhttp 文件夹放到其他地方，只是放在一起更方便管理）并将之前下载好的 go-cqhttp 复制到该目录下。
@@ -145,3 +163,7 @@ pip install -r requirements.txt
 ```
 nb run
 ```
+
+### 快速开始（Linux）
+
+**目前由于诸多原因，不推荐使用 Docker 部署。如需 Docker 部署请自行尝试，恕不提供技术支持。**

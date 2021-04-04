@@ -42,10 +42,10 @@ Demo：[Dr.Sink](https://wpa.qq.com/msgrd?v=3&uin=1351483470&site=qq&menu=yes)
 - [ ] 随机姓名 `.name`
 - [x] 今日人品 `.jrrp`
 - [ ] 欢迎词 `.welcome`
+- [ ] 第三人称动作 `.me `
 
 *以下功能将**永远**不会移植：*
 
-- [ ] 第三人称动作 `.me `
 - [ ] 集成群管 `.group`
 - [ ] 授权许可 `.authorize`
 - [ ] 发送消息 `.send`
@@ -55,6 +55,10 @@ Demo：[Dr.Sink](https://wpa.qq.com/msgrd?v=3&uin=1351483470&site=qq&menu=yes)
 ### Developer
 
 [开发文档](./docs/DEVELOPER.md)
+
+### Mannal
+
+[部署指南](./docs/MANNAL.md)
 
 ### License
 
