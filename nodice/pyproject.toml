@@ -7,6 +7,7 @@ license = "AGPL-3.0"
 
 [tool.poetry.dependencies]
 python = "^3.7.3"
+nb-cli = "^0.4.1"
 nonebot2 = {git = "git@github.com:nonebot/nonebot2.git", rev = "dev"}
 nonebot-adapter-cqhttp = "^2.0.0a12"
 nonebot-plugin-manager = "^0.3.12"
