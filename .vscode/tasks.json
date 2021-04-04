@@ -6,7 +6,7 @@
         {
             "label": "nodice",
             "type": "shell",
-            "command": "cd ./nodice && poetry run python ./bot.py",
+            "command": "cd ./nodice && poetry run nb run",
             "problemMatcher": [],
             "group":"build"
         },
