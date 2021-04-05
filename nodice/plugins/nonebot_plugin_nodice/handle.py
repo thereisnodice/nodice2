@@ -1,6 +1,3 @@
-# handle.py
-# 与 nonebot 完全松耦合的命令实现
-
 from .calculator import Calculator
 from .data import *
 from .message import getGlobalMsg, format_string

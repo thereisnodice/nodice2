@@ -1,6 +1,3 @@
-# constant.py
-# 存放全局变量以及检查文件
-
 import os
 
 DATA_PATH = "data/nodice"

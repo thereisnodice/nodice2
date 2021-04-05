@@ -4,9 +4,9 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "nodice",
+            "label": "nonebot",
             "type": "shell",
-            "command": "cd ./nodice && poetry run nb run",
+            "command": "cd nodice && poetry run nb run",
             "problemMatcher": [],
             "group":"build"
         },
@@ -14,6 +14,13 @@
             "label": "go-cqhttp",
             "type": "shell",
             "command": "cd go-cqhttp && ./go-cqhttp.exe faststart",
+            "problemMatcher": [],
+            "group":"build"
+        },
+        {
+            "label": "mirai-api-http",
+            "type": "shell",
+            "command": "cd mirai-api-http && ./mcl ",
             "problemMatcher": [],
             "group":"build"
         }

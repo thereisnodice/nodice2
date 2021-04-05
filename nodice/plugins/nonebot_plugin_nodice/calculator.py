@@ -1,6 +1,3 @@
-# calculator.py
-# 计算核心，负责实现掷骰功能。
-
 import random
 import re
 from typing import Optional

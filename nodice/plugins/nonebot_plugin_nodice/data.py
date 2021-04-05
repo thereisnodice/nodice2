@@ -1,6 +1,3 @@
-# sqlite.py
-# 数据库模块，负责与 sqlite3 交互
-
 import sqlite3
 import os
 

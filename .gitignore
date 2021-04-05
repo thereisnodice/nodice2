@@ -1,5 +1,6 @@
-# go-cqhttp
+# 协议端
 go-cqhttp
+mirai-api-http
 
 # 配置文件
 .env.dev
