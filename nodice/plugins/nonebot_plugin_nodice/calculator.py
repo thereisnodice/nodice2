@@ -57,7 +57,7 @@ class Calculator:
         type: Optional[str] = None,
         expression: Optional[str] = None,
         default_dice: Optional[int] = None,
-    ):
+    ) -> "Calculator":
         if type is None:
             type = self.type
 
@@ -84,12 +84,11 @@ class Calculator:
         self.extract_roundnum_and_reason()
         for i in range(self.round_num):
             self.expression = self.source
-            self.calculate_with_bracket()
-            result += "\n" + str(self)
+            result += "\n" + str(self.calculate_with_bracket())
         return result
 
     # 提取轮数和原因
-    def extract_roundnum_and_reason(self):
+    def extract_roundnum_and_reason(self) -> "Calculator":
 
         # 匹配正则
         match_result = re.search(
@@ -113,8 +112,10 @@ class Calculator:
         except:
             self.reason = None
 
+        return self
+
     # 计算有括号的表达式
-    def calculate_with_bracket(self) -> int:
+    def calculate_with_bracket(self) -> "Calculator":
         expression = self.expression
         right_bracket_position = expression.find(")")
         if right_bracket_position >= 0:
@@ -143,10 +144,10 @@ class Calculator:
         else:
             self.calculate_without_bracket()
 
-        return int(self.result)
+        return self
 
     # 计算无括号的表达式
-    def calculate_without_bracket(self) -> int:
+    def calculate_without_bracket(self) -> "Calculator":
 
         # 去除无效括号
         expression = self.expression.replace("(", "").replace(")", "")
@@ -194,10 +195,10 @@ class Calculator:
         else:
             self.result = float(expression)
 
-        return int(self.result)
+        return self
 
     # 掷骰
-    def throw_dice(self) -> int:
+    def throw_dice(self) -> "Calculator":
         expression = self.expression
         default_dice = self.default_dice
 
@@ -256,7 +257,7 @@ class Calculator:
         self.detail += "]"
         self.result = dice_count
 
-        return self.result
+        return self
 
 
 class CocCalculator(Calculator):

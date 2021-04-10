@@ -1,19 +1,32 @@
+from typing import Union, Dict
+
 from .calculator import Calculator
-#from .data import 
+from .data import get_attribute, set_attribute
+
 
 class Character:
-    def __init__(self, template: dict):
-        self.template = template
+    def __init__(self, template: Union[Dict[str, str], str]):
+        if isinstance(template, dict):
+            self.template = template
+        else:
+            self.template = eval(template)
 
     def __str__(self):
-        return " ".join(f"{key}:{self.attribute[key]}" for key in self.attribute) + f" 共计: {self.summary}"
+        return (
+            " ".join(f"{key}:{self.attribute[key]}" for key in self.attribute)
+            + f" 共计: {self.summary}"
+        )
 
-    def generate(self):
+    def generate(self) -> "Character":
         self.attribute = {}
         self.summary = 0
         for key in self.template:
-            self.attribute[key] = Calculator(self.template[key].upper()).calculate_with_bracket()
+            self.attribute[key] = int(
+                Calculator(self.template[key].upper()).calculate_with_bracket().result
+            )
             self.summary += self.attribute[key]
+        return self
+
 
 def get_coc_character():
     attr = {
@@ -27,9 +40,8 @@ def get_coc_character():
         "教育": "(2d6+6)*5",
         "幸运": "3d6*5",
     }
-    char = Character(attr)
-    char.generate()
-    return str(char)
+    return str(Character(attr).generate())
+
 
 def get_dnd_character():
     attr = {
@@ -40,9 +52,4 @@ def get_dnd_character():
         "感知": "4d6k3",
         "魅力": "4d6k3",
     }
-    char = Character(attr)
-    char.generate()
-    return str(char)
-
-if __name__ == "__main__":
-    print(str(get_dnd_character()))
+    return str(Character(attr).generate())
