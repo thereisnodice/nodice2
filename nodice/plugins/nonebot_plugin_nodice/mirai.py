@@ -3,6 +3,7 @@ from nonebot.adapters.mirai import Event, Bot, FriendMessage, GroupMessage
 from .nb2 import *
 from .handle import *
 
+
 @accept_request.handle()
 async def _(bot: Bot, event: Event):
     await event.approve(bot)
@@ -33,7 +34,7 @@ async def _(bot: Bot, event: Event):
     await bot.send(
         event,
         handle_jrrp(
-            self_id=event.self_id, user_id=event.id, nickname=event.sender.nickname
+            self_id=event.self_id, user_id=event.sender.id, nickname=event.sender.name
         ),
     )
 
@@ -51,4 +52,26 @@ async def _(bot: Bot, event: GroupMessage):
         handle_r(
             message=message, user_id=user_id, nickname=nickname, group_id=group_id
         ),
+    )
+
+
+@nodice_coc.handle()
+async def _(bot: Bot, event: Event):
+    message = event.get_message().extract_plain_text().strip()
+    user_id = event.sender.id
+    nickname = event.sender.name
+    await bot.send(
+        event,
+        handle_coc(message=message, user_id=user_id, nickname=nickname),
+    )
+
+
+@nodice_dnd.handle()
+async def _(bot: Bot, event: Event):
+    message = event.get_message().extract_plain_text().strip()
+    user_id = event.sender.id
+    nickname = event.sender.name
+    await bot.send(
+        event,
+        handle_dnd(message=message, user_id=user_id, nickname=nickname),
     )
