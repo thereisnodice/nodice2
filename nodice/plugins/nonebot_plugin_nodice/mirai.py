@@ -1,4 +1,4 @@
-from nonebot.adapters.mirai import Event, Bot, FriendMessage
+from nonebot.adapters.mirai import Event, Bot, FriendMessage, GroupMessage
 
 from .nb2 import *
 from .handle import *
@@ -39,10 +39,10 @@ async def _(bot: Bot, event: Event):
 
 
 @nodice_r.handle()
-async def _(bot: Bot, event: Event):
+async def _(bot: Bot, event: GroupMessage):
     message = event.get_message().extract_plain_text().strip()
     user_id = event.sender.id
-    nickname = event.sender.memberName
+    nickname = event.sender.name
     group_id = None
     if not isinstance(event, FriendMessage):
         group_id = event.sender.group.id

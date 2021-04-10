@@ -1,35 +1,19 @@
-from .exchange import getCalculator
+from .calculator import Calculator
+#from .data import 
 
-
-def getCharacterCard(attr: dict) -> str:
-    result = ""
-    for i, key in enumerate(attr.keys()):
-        if i:
-            result += " "
-        cal = getCalculator(attr[key])
-        cal.calculate_with_bracket()
-        result += key + ": " + str(int(cal.result))
-    return result
-
-
-class CharacterCard:
-    def __init__(self, property: dict):
-        self.property = property
+class Character:
+    def __init__(self, template: dict):
+        self.template = template
 
     def __str__(self):
-        return str(self.property)
+        return " ".join(f"{key}:{self.attribute[key]}" for key in self.attribute) + f" 共计: {self.summary}"
 
     def generate(self):
-        result = ""
-        for key in self.property.keys():
-            cal = getCalculator(self.property[key])
-            cal.calculate_with_bracket()
-            result += key + ":" + str(int(cal.result)) + " "
-        return result
-
-    def count(self):
-        return result
-
+        self.attribute = {}
+        self.summary = 0
+        for key in self.template:
+            self.attribute[key] = Calculator(self.template[key].upper()).calculate_with_bracket()
+            self.summary += self.attribute[key]
 
 def get_coc_character():
     attr = {
@@ -43,8 +27,9 @@ def get_coc_character():
         "教育": "(2d6+6)*5",
         "幸运": "3d6*5",
     }
-    return BaseCharacterCard(attr).generate()
-
+    char = Character(attr)
+    char.generate()
+    return str(char)
 
 def get_dnd_character():
     attr = {
@@ -55,4 +40,9 @@ def get_dnd_character():
         "感知": "4d6k3",
         "魅力": "4d6k3",
     }
-    return BaseCharacterCard(attr).generate()
+    char = Character(attr)
+    char.generate()
+    return str(char)
+
+if __name__ == "__main__":
+    print(str(get_dnd_character()))

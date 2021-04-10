@@ -1,3 +1,4 @@
+from .character import get_coc_character,get_dnd_character
 from .calculator import Calculator
 from .data import *
 from .message import getGlobalMsg, format_string
@@ -52,3 +53,19 @@ def handle_jrrp(**kargs) -> str:
         "res": get_jrrp(kargs["self_id"], kargs["user_id"]),
     }
     return format_string(getGlobalMsg("strJrrp"), data)
+
+def handle_coc(**kargs) -> str:
+    data = {
+        "pc": get_nickname(kargs["user_id"], kargs["nickname"]),
+        "res": get_coc_character()
+        
+    }
+    return format_string(getGlobalMsg("strCOCBuild"), data)
+
+def handle_dnd(**kargs) -> str:
+    data = {
+        "pc": get_nickname(kargs["user_id"], kargs["nickname"]),
+        "res": get_dnd_character()
+        
+    }
+    return format_string(getGlobalMsg("strDNDBuild"), data)

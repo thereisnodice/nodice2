@@ -52,3 +52,31 @@ async def _(bot: Bot, event: Event):
             message=message, user_id=user_id, nickname=nickname, group_id=group_id
         ),
     )
+
+@nodice_coc.handle()
+async def _(bot: Bot, event: Event):
+    message = event.get_message().extract_plain_text().strip()
+    user_id = event.sender.user_id
+    nickname = event.sender.nickname
+    await bot.send(
+        event,
+        handle_coc(
+            message=message, 
+            user_id=user_id,
+            nickname=nickname
+        ),
+    )
+
+@nodice_dnd.handle()
+async def _(bot: Bot, event: Event):
+    message = event.get_message().extract_plain_text().strip()
+    user_id = event.sender.user_id
+    nickname = event.sender.nickname
+    await bot.send(
+        event,
+        handle_dnd(
+            message=message, 
+            user_id=user_id,
+            nickname=nickname
+        ),
+    )

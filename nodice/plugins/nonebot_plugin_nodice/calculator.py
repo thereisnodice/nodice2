@@ -50,7 +50,7 @@ class Calculator:
         return result
 
     def __str__(self):
-        return f"{self.source} = {self.detail if self.show_detail else ''} = {int(self.result)}"
+        return f"{self.source}{' = ' + self.detail if self.show_detail else ''} = {int(self.result)}"
 
     def new(
         self,
@@ -139,9 +139,11 @@ class Calculator:
                 )
                 self.calculate_with_bracket()
             else:
-                return self.calculate_without_bracket()
+                self.calculate_without_bracket()
         else:
-            return self.calculate_without_bracket()
+            self.calculate_without_bracket()
+
+        return int(self.result)
 
     # 计算无括号的表达式
     def calculate_without_bracket(self) -> int:
@@ -192,8 +194,10 @@ class Calculator:
         else:
             self.result = float(expression)
 
+        return int(self.result)
+
     # 掷骰
-    def throw_dice(self):
+    def throw_dice(self) -> int:
         expression = self.expression
         default_dice = self.default_dice
 
@@ -251,6 +255,8 @@ class Calculator:
                 self.detail += "(" + str(dice_result_list[i]) + ")"
         self.detail += "]"
         self.result = dice_count
+
+        return self.result
 
 
 class CocCalculator(Calculator):
@@ -358,6 +364,7 @@ class CocCalculator(Calculator):
                     result = "{strSuccess}"
         else:
             return IndexError
+
         return result
 
     # 常规检定
