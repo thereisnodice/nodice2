@@ -2,10 +2,7 @@ import random
 import re
 from typing import Optional
 
-# from .exception import DiceException
-class DiceException(Exception):
-    pass
-
+from .exception import DiceException
 
 # 基础 Calculator 类
 class Calculator:
@@ -81,14 +78,18 @@ class Calculator:
     def run(self, show_detail: bool = True) -> str:
         self.show_detail = show_detail
         result = ""
-        self.extract_roundnum_and_reason()
+        self.__extract_roundnum_and_reason()
         for i in range(self.round_num):
             self.expression = self.source
-            result += "\n" + str(self.calculate_with_bracket())
+            result += "\n" + str(self.__calculate_with_bracket())
         return result
 
+    def calculate(self) -> int:
+        self.expression = self.expression.upper()
+        return int(self.__calculate_with_bracket().result)
+
     # 提取轮数和原因
-    def extract_roundnum_and_reason(self) -> "Calculator":
+    def __extract_roundnum_and_reason(self) -> "Calculator":
 
         # 匹配正则
         match_result = re.search(
@@ -115,7 +116,7 @@ class Calculator:
         return self
 
     # 计算有括号的表达式
-    def calculate_with_bracket(self) -> "Calculator":
+    def __calculate_with_bracket(self) -> "Calculator":
         expression = self.expression
         right_bracket_position = expression.find(")")
         if right_bracket_position >= 0:
@@ -126,7 +127,7 @@ class Calculator:
                 calculator_in_bracket = Calculator().new(
                     expression=expression_in_left[left_bracket_position + 1 :],
                 )
-                calculator_in_bracket.calculate_without_bracket()
+                calculator_in_bracket.__calculate_without_bracket()
                 expression_in_left = expression_in_left[:left_bracket_position]
                 self.expression = (
                     expression_in_left
@@ -138,16 +139,16 @@ class Calculator:
                     + calculator_in_bracket.detail
                     + expression_in_right
                 )
-                self.calculate_with_bracket()
+                self.__calculate_with_bracket()
             else:
-                self.calculate_without_bracket()
+                self.__calculate_without_bracket()
         else:
-            self.calculate_without_bracket()
+            self.__calculate_without_bracket()
 
         return self
 
     # 计算无括号的表达式
-    def calculate_without_bracket(self) -> "Calculator":
+    def __calculate_without_bracket(self) -> "Calculator":
 
         # 去除无效括号
         expression = self.expression.replace("(", "").replace(")", "")
@@ -170,11 +171,11 @@ class Calculator:
                 operator_position = expression.find("^")
 
             calculator_in_left = self.new(expression=expression[:operator_position])
-            calculator_in_left.calculate_without_bracket()
+            calculator_in_left.__calculate_without_bracket()
             calculator_in_right = self.new(
                 expression=expression[operator_position + 1 :]
             )
-            calculator_in_right.calculate_without_bracket()
+            calculator_in_right.__calculate_without_bracket()
 
             if operator == "+":
                 calculator_result = calculator_in_left + calculator_in_right
@@ -191,14 +192,14 @@ class Calculator:
             self.detail = calculator_result.detail
             self.result = calculator_result.result
         elif re.search(r"([0-9]*)D([0-9]*)(K([0-9]*))?", expression):
-            self.throw_dice()
+            self.__throw_dice()
         else:
             self.result = float(expression)
 
         return self
 
     # 掷骰
-    def throw_dice(self) -> "Calculator":
+    def __throw_dice(self) -> "Calculator":
         expression = self.expression
         default_dice = self.default_dice
 
@@ -263,7 +264,7 @@ class Calculator:
 class CocCalculator(Calculator):
     type = "coc"
 
-    def deal_with_result(self, success_rate: int, success_rule: int) -> str:
+    def deal_with_result(self, success_rate: int, success_rule: int = 0) -> str:
         if success_rule == 0:
             if self.result == 100:
                 result = "{strFumble}"
@@ -369,12 +370,10 @@ class CocCalculator(Calculator):
         return result
 
     # 常规检定
-    def roll_check(self, property: dict, success_rule=0):
-        type = self.type
-
+    def roll_check(self, attribute: dict, success_rule=0):
         # 匹配正则
         match_result = re.search(
-            r"(([0-9]+)#)?(困难|极难)?([^0-9]*)([0-9]*)(.*)", self.expression
+            r"(([0-9]+)#)?([^0-9]*)([0-9]*)(.*)", self.expression
         )
 
         # 获取轮数，获取不到默认为1，超过10或等于0报错
@@ -382,6 +381,7 @@ class CocCalculator(Calculator):
             round_num = int(match_result.group(2))
         except:
             round_num = 1
+            
         if round_num <= 0 or round_num > 10:
             raise DiceException("非法轮数")
 
@@ -410,7 +410,7 @@ class CocCalculator(Calculator):
         message = ""
         for i in range(round_num):
             calculator = self.new("D100", type)
-            calculator.calculate_with_bracket()
+            calculator.__calculate_with_bracket()
             message += "\n" + calculator.source
             message += "=" + str(int(calculator.result))
             message += "/" + str(success_rate)
@@ -439,7 +439,7 @@ class CocCalculator(Calculator):
         # 返回消息
         message = ""
         calculator = self.new("D100", type)
-        calculator.throw_dice()
+        calculator.__throw_dice()
         message += "\n" + calculator.source
         message += "=" + str(int(calculator.result))
         message += "/" + str(success_rate)
@@ -451,7 +451,7 @@ class CocCalculator(Calculator):
             ]
         elif success_level == "{strFailure}":
             message += " 失败 理智减少"
-            calculator_fail.throw_dice()
+            calculator_fail.__throw_dice()
             message += calculator_fail.source
             message += "=" + str(int(calculator_fail.result))
         elif success_level == "{strFumble}":
@@ -465,8 +465,8 @@ class FateCalculator:
     type = "fate"
 
     # 掷骰
-    def throw_dice(self):
-        print("throw_dice:", self)
+    def __throw_dice(self):
+        print("__throw_dice:", self)
 
         expression = self.expression
         default_dice = self.default_dice
@@ -533,8 +533,8 @@ class WodCalculator:
     type = "wod"
 
     # 掷骰
-    def throw_dice(self):
-        print("throw_dice:", self)
+    def __throw_dice(self):
+        print("__throw_dice:", self)
 
         expression = self.expression
         default_dice = self.default_dice
@@ -595,9 +595,3 @@ class WodCalculator:
                 self.detail += "(" + str(dice_result_list[i]) + ")"
         self.detail += "]"
         self.result = dice_count
-
-
-if __name__ == "__main__":
-    calculator = Calculator(input())
-    calculator.extract_roundnum_and_reason()
-    print(calculator.run())

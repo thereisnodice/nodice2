@@ -7,24 +7,22 @@ from .data import get_attribute, set_attribute
 class Character:
     def __init__(self, template: Union[Dict[str, str], str]):
         if isinstance(template, dict):
-            self.template = template
+            self.__template = template
         else:
-            self.template = eval(template)
+            self.__template = eval(template)
 
     def __str__(self):
         return (
-            " ".join(f"{key}:{self.attribute[key]}" for key in self.attribute)
-            + f" 共计: {self.summary}"
+            " ".join(f"{key}:{self.__attribute[key]}" for key in self.__attribute)
+            + f" 共计: {self.__summary}"
         )
 
     def generate(self) -> "Character":
-        self.attribute = {}
-        self.summary = 0
-        for key in self.template:
-            self.attribute[key] = int(
-                Calculator(self.template[key].upper()).calculate_with_bracket().result
-            )
-            self.summary += self.attribute[key]
+        self.__attribute = {}
+        self.__summary = 0
+        for key in self.__template:
+            self.__attribute[key] = Calculator(self.__template[key]).calculate()
+            self.summary += self.__attribute[key]
         return self
 
 
