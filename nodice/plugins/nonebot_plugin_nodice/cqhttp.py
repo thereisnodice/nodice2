@@ -3,6 +3,7 @@ from nonebot.adapters.cqhttp import Event, Bot, PrivateMessageEvent
 from .handle import *
 from .nb2 import *
 
+
 @accept_request.handle()
 async def _(bot: Bot, event: Event):
     await event.approve(bot)
@@ -24,7 +25,7 @@ async def _(bot: Bot, event: Event):
 async def _(bot: Bot, event: Event):
     await bot.send(
         event,
-        handle_rules(message=event.get_plaintext().strip(), self_id=event.self_id),
+        await handle_rules(message=event.get_plaintext().strip(), self_id=event.self_id),
     )
 
 
@@ -32,7 +33,7 @@ async def _(bot: Bot, event: Event):
 async def _(bot: Bot, event: Event):
     await bot.send(
         event,
-        handle_jrrp(
+        await handle_jrrp(
             self_id=event.self_id, user_id=event.user_id, nickname=event.sender.nickname
         ),
     )
@@ -53,6 +54,7 @@ async def _(bot: Bot, event: Event):
         ),
     )
 
+
 @nodice_coc.handle()
 async def _(bot: Bot, event: Event):
     message = event.get_message().extract_plain_text().strip()
@@ -60,12 +62,9 @@ async def _(bot: Bot, event: Event):
     nickname = event.sender.nickname
     await bot.send(
         event,
-        handle_coc(
-            message=message, 
-            user_id=user_id,
-            nickname=nickname
-        ),
+        handle_coc(message=message, user_id=user_id, nickname=nickname),
     )
+
 
 @nodice_dnd.handle()
 async def _(bot: Bot, event: Event):
@@ -74,9 +73,75 @@ async def _(bot: Bot, event: Event):
     nickname = event.sender.nickname
     await bot.send(
         event,
-        handle_dnd(
-            message=message, 
-            user_id=user_id,
-            nickname=nickname
-        ),
+        handle_dnd(message=message, user_id=user_id, nickname=nickname),
+    )
+
+@nodice_st.handle()
+async def _(bot: Bot, event: Event):
+    message = event.get_message().extract_plain_text().strip()
+    user_id = event.sender.user_id
+    group_id = None
+    if not isinstance(event, PrivateMessageEvent):
+        group_id = event.group_id
+    nickname = event.sender.nickname
+    await bot.send(
+        event,
+        handle_st(message=message, user_id=user_id, nickname=nickname, group_id=group_id
+        )
+    )
+
+@nodice_draw.handle()
+async def _(bot: Bot, event: Event):
+    message = event.get_message().extract_plain_text().strip()
+    user_id = event.sender.user_id
+    group_id = None
+    if not isinstance(event, PrivateMessageEvent):
+        group_id = event.group_id
+    nickname = event.sender.nickname
+    await bot.send(
+        event,
+        handle_draw(message=message, user_id=user_id, nickname=nickname, group_id=group_id
+        )
+    )
+
+@nodice_ti.handle()
+async def _(bot: Bot, event: Event):
+    message = event.get_message().extract_plain_text().strip()
+    user_id = event.sender.user_id
+    group_id = None
+    if not isinstance(event, PrivateMessageEvent):
+        group_id = event.group_id
+    nickname = event.sender.nickname
+    await bot.send(
+        event,
+        handle_ti(message=message, user_id=user_id, nickname=nickname, group_id=group_id
+        )
+    )
+
+@nodice_li.handle()
+async def _(bot: Bot, event: Event):
+    message = event.get_message().extract_plain_text().strip()
+    user_id = event.sender.user_id
+    group_id = None
+    if not isinstance(event, PrivateMessageEvent):
+        group_id = event.group_id
+    nickname = event.sender.nickname
+    await bot.send(
+        event,
+        handle_li(message=message, user_id=user_id, nickname=nickname, group_id=group_id
+        )
+    )
+
+@nodice_name.handle()
+async def _(bot: Bot, event: Event):
+    message = event.get_message().extract_plain_text().strip()
+    user_id = event.sender.user_id
+    group_id = None
+    if not isinstance(event, PrivateMessageEvent):
+        group_id = event.group_id
+    nickname = event.sender.nickname
+    await bot.send(
+        event,
+        handle_name(message=message, user_id=user_id, nickname=nickname, group_id=group_id
+        )
     )

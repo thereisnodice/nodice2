@@ -1,9 +1,7 @@
-import os
-
 import hjson
 
 
-def setGlobalMsg(key: str, value):
+def setGlobalMsg(key: str, value: str):
     with open("data/nodice/CustomMsg.hjson", "r", encoding="utf-8") as f:
         CustomMsg = hjson.loads(f.read())
     CustomMsg[key] = value
@@ -33,8 +31,3 @@ def format_string(origin_str: str, format_para: dict) -> str:
             para = getGlobalMsg(para)
         origin_str = l + para + r
     return origin_str
-
-
-# 调试用
-if __name__ == "__main__":
-    print(getGlobalMsg("strRollDice"))
