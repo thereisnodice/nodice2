@@ -1,41 +1,39 @@
 import httpx
 
 
-def get_jrrp(bot_qq_id: int, qq_id: int, is_online: bool = True):
+async def get_jrrp(self_id: int, user_id: int, is_online: bool = True) -> str:
     if is_online:
-        return get_jrrp_online(bot_qq_id, qq_id)
+        return await get_jrrp_online(self_id, user_id)
     else:
-        return get_jrrp_local(qq_id)
+        return get_jrrp_local(user_id)
 
 
-def get_jrrp_local(qq_id: int):
+def get_jrrp_local(user_id: int) -> str:
+
     pass
 
-
-def get_jrrp_online(bot_qq_id, qq_id):
+async def get_jrrp_online(self_id: int, user_id: int) -> str:
     url = "http://api.kokona.tech:5555/jrrp"
-    data = {"User-Agent": "NoDice", "QQ": bot_qq_id, "v": "20190114", "QueryQQ": qq_id}
-    res = httpx.post(url=url, data=data)
+    data = {"User-Agent": "NoDice", "QQ": self_id, "v": "20190114", "QueryQQ": user_id}
+    async with httpx.AsyncClient() as client:
+        res = await client.post(url=url, data=data)
     return res.text
 
 
-def get_rules(bot_qq_id: int, name: str, is_online: bool = True):
+async def get_rules(self_id: int, keyword: str, is_online: bool = True):
     if is_online:
-        return get_rules_online(bot_qq_id, name)
+        return await get_rules_online(self_id, keyword)
     else:
-        return get_rules_local(name)
+        return get_rules_local(keyword)
 
 
-def get_rules_online(bot_qq_id: int, name: str):
+async def get_rules_online(self_id: int, keyword: str) -> str:
     url = "http://api.kokona.tech:5555/rules"
-    data = {"User-Agent": "NoDice", "QQ": bot_qq_id, "v": "20190114", "Name": name}
-    res = httpx.post(url=url, data=data)
+    data = {"User-Agent": "NoDice", "QQ": self_id, "v": "20190114", "Name": keyword}
+    async with httpx.AsyncClient() as client:
+        res = await client.post(url=url, data=data)
     return res.text
 
 
-def get_rules_local(name: str):
+def get_rules_local(keyword: str) -> str:
     pass
-
-
-if __name__ == "__main__":
-    print(get_rules_online("123456789", "大成功"))
