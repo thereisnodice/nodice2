@@ -9,14 +9,16 @@
 
 ### Commands
 
-**完美移植的功能：**
+**完美移植的功能**
+
+#### 完美移植的功能
 
 - [x] 人物作成 `.coc/dnd`
-- [ ] 拓展牌堆 `.draw`
+- [x] 拓展牌堆 `.draw`
 - [ ] COC 成长检定 `.en`
 - [x] 帮助文档 `.help`
 - [x] 今日人品 `.jrrp`
-- [ ] 随机姓名 `.name`
+- [x] 随机姓名 `.name`
 - [ ] 设置昵称 `.nn(n)`
 - [ ] 旁观模式 `.ob`
 - [ ] 角色卡记录 `.pc`
@@ -28,32 +30,27 @@
 - [ ] 设置默认骰 `.set`
 - [ ] COC 房规 `.setcoc`
 - [ ] 属性记录 `.st`
-- [ ] 疯狂症状 `.ti/li`
+- [x] 疯狂症状 `.ti/li`
 - [ ] WOD 骰池 `.w(w)`
 
-**已整合的功能**
+#### 已整合的功能
 
-- [ ] 分群牌堆 `.deck` ：整合至拓展牌堆 `.draw` 下，具体形式未定。
-- [ ] 先攻列表 `.init` ：整合至 DND 先攻 `.ri` 下，具体形式未定。
+- [ ] 先攻列表 `.init` 整合至 `.ri` 下，具体形式未定。
 
-**用其他插件实现的功能**
+#### 用其他插件实现的功能
 
-- [x] 退群指令 `.dismiss` ：计划中，目前仍在项目内
-- [x] 骰子开关 `.bot on/off`：[nonebot_plugin_manager](https://github.com/Jigsaw111/nonebot_plugin_manager)
-- [x] 跑团记录 `.log` ：[TRPGLogger](https://github.com/thereisnodice/TRPGLogger)
+- [] 骰子开关 `.bot on/off`
+- [x] 跑团记录 `.log`
 
-**低优先级的功能**
+#### 放弃实现的功能
 
-- [ ] 第三人称动作 `.me `
+- [ ] 分群牌堆 `.deck`
 - [ ] 发送消息 `.send`
-- [ ] 欢迎词 `.welcome`
-
-**永远不会移植的功能**
-
 - [ ] 集成群管 `.group`
+- [ ] 欢迎词 `.welcome`
+- [x] 退群指令 `.dismiss`
+- [ ] 第三人称动作 `.me `
 - [ ] 授权许可 `!authorize`
-
-[为什么不移植这些功能](../../../docs/DEVELOPER.md#某些功能不会移植的原因)
 
 ### License
 
