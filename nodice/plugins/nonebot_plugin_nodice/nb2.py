@@ -1,8 +1,8 @@
 from nonebot import on_command, on_request
 
-from .constant import load_const
+from .init import init
 
-load_const()
+init()
 
 # 待删除
 accept_request = on_request()
