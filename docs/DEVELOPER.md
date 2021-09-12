@@ -42,7 +42,7 @@
 
 #### 用其他插件实现的功能
 
-- [x] 骰子开关 `.bot on/off`：[nonebot_plugin_manager](https://github.com/Jigsaw111/nonebot_plugin_manager)
+- [ ] 骰子开关 `.bot on/off`：[nonebot_plugin_manager](https://github.com/Jigsaw111/nonebot_plugin_manager)
 - [x] 跑团记录 `.log` ：[TRPGLogger](https://github.com/thereisnodice/TRPGLogger)
 
 #### 放弃实现的功能
