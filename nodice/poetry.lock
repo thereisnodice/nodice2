@@ -389,15 +389,15 @@ websockets = ">=9.1,<10.0"
 
 [[package]]
 name = "nonebot-plugin-manager"
-version = "0.3.13"
+version = "0.5.0"
 description = "Nonebot Plugin Manager base on import hook"
 category = "main"
 optional = false
 python-versions = ">=3.7.3,<4.0.0"
 
 [package.dependencies]
-nonebot-adapter-cqhttp = ">=2.0.0a11,<3.0.0"
-nonebot2 = ">=2.0.0-alpha.11,<3.0.0"
+nonebot-adapter-cqhttp = ">=2.0.0-alpha.15,<3.0.0"
+nonebot2 = ">=2.0.0-alpha.15,<3.0.0"
 
 [[package]]
 name = "nonebot-plugin-nodice"
@@ -757,7 +757,7 @@ mah = ["nonebot-adapter-mirai"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7.3"
-content-hash = "9213ec6e588c884f50ff64752041b01e6c68c273b78f4b74afafde1c54b30b55"
+content-hash = "2ce5e050fef0199c909a86cd8848a3295494e36e69f233d0b205704a21f4d158"
 
 [metadata.files]
 anyio = [
@@ -930,8 +930,8 @@ nonebot-adapter-mirai = [
     {file = "nonebot_adapter_mirai-2.0.0a15-py3-none-any.whl", hash = "sha256:7abf1d2cabc948faccf36de1243aaf6a71f9f328edf3b12fdcf94713b8f8e9de"},
 ]
 nonebot-plugin-manager = [
-    {file = "nonebot_plugin_manager-0.3.13-py3-none-any.whl", hash = "sha256:6b2a06b0a01a9cfe3b155e62c0b2ff5ddeafeaeb03ce99a67c289b478b6bff2a"},
-    {file = "nonebot_plugin_manager-0.3.13.tar.gz", hash = "sha256:9ac5c8069500b5a7808c15520fcdb67ef7e0f0279d1a225f92a51f430403f0bd"},
+    {file = "nonebot_plugin_manager-0.5.0-py3-none-any.whl", hash = "sha256:b6575e2f9499b53545d3016cb8adda58e9443d0238391787d8d831ea7c52be13"},
+    {file = "nonebot_plugin_manager-0.5.0.tar.gz", hash = "sha256:032ad6c9acda5e44b78292ba9f5c3ca6a1bb4f716cff6aa279e90069f44904de"},
 ]
 nonebot-plugin-nodice = []
 nonebot-plugin-trpglogger = [

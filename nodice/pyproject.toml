@@ -9,7 +9,7 @@ license = "AGPL-3.0"
 python = "^3.7.3"
 nonebot2 = "^2.0.0a15"
 nonebot-adapter-cqhttp = "^2.0.0a15"
-nonebot-plugin-manager = "^0.3.12"
+nonebot-plugin-manager = "^0.5.0"
 nonebot-plugin-trpglogger = "^0.2.0"
 nonebot-plugin-nodice = { path = "./plugins/nonebot_plugin_nodice", develop = true }
 nonebot-adapter-mirai = { version = "^2.0.0-alpha.15", optional = true }
