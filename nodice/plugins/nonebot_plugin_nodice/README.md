@@ -1,6 +1,6 @@
 # Nonebot Plugin NoDice
 
-**基于 [nonebot2](https://github.com/nonebot/nonebot2)，兼容 [go-cqhttp](https://github.com/Mrs4s/go-cqhttp) 和 [mirai-api-http](https://github.com/project-mirai/mirai-api-http) 的QQ跑团掷骰插件*
+**基于 [nonebot2](https://github.com/nonebot/nonebot2)，兼容 [go-cqhttp](https://github.com/Mrs4s/go-cqhttp) 和 [mirai-api-http](https://github.com/project-mirai/mirai-api-http) 的 QQ 跑团掷骰插件*
 
 [![License](https://img.shields.io/github/license/thereisnodice/nodice2)](LICENSE)
 ![Python Version](https://img.shields.io/badge/python-3.7.3+-blue.svg)
@@ -39,7 +39,7 @@
 
 #### 用其他插件实现的功能
 
-- [] 骰子开关 `.bot on/off`
+- [ ] 骰子开关 `.bot on/off`
 - [x] 跑团记录 `.log`
 
 #### 放弃实现的功能
