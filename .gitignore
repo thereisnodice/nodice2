@@ -4,6 +4,7 @@ mirai-api-http
 
 # 配置文件
 .env.dev
+.vscode/settings.json
 
 # python
 __pycache__

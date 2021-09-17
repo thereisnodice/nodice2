@@ -6,23 +6,23 @@
         {
             "label": "nonebot",
             "type": "shell",
-            "command": "cd nodice && poetry run nb run",
+            "command": "cd nodice; poetry run nb run",
             "problemMatcher": [],
-            "group":"build"
+            "group": "build"
         },
         {
             "label": "go-cqhttp",
             "type": "shell",
-            "command": "cd go-cqhttp && ./go-cqhttp.exe faststart",
+            "command": "cd go-cqhttp; go-cqhttp faststart",
             "problemMatcher": [],
-            "group":"build"
+            "group": "build"
         },
         {
             "label": "mirai-api-http",
             "type": "shell",
-            "command": "cd mirai-api-http && ./mcl ",
+            "command": "cd mirai-api-http; ./mcl ",
             "problemMatcher": [],
-            "group":"build"
+            "group": "build"
         }
     ]
 }
