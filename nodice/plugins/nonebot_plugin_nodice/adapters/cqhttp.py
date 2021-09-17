@@ -1,7 +1,7 @@
 from nonebot.adapters.cqhttp import Event, Bot, PrivateMessageEvent
 
-from .handle import *
-from .nb2 import *
+from ..handle import *
+from ..matcher import *
 
 
 @accept_request.handle()
@@ -31,6 +31,7 @@ async def _(bot: Bot, event: Event):
 
 @nodice_jrrp.handle()
 async def _(bot: Bot, event: Event):
+    print(nodice_jrrp.module)
     await bot.send(
         event,
         await handle_jrrp(

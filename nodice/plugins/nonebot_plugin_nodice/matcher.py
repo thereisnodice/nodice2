@@ -1,8 +1,5 @@
 from nonebot import on_command, on_request
 
-from .init import init
-
-init()
 
 # 待删除
 accept_request = on_request()

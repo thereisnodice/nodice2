@@ -1,7 +1,7 @@
 from nonebot.adapters.mirai import Event, Bot, FriendMessage, GroupMessage
 
-from .nb2 import *
-from .handle import *
+from ..handle import *
+from ..matcher import *
 
 
 @accept_request.handle()

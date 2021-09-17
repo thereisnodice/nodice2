@@ -1,14 +1,14 @@
-import nonebot
+from .init import init
 
-if int(nonebot.__version__[0]) == 2:
-    try:
-        from .cqhttp import *
-    except:
-        nonebot.logger.warning("Could not found CQHTTP Adapter !")
+from nonebot import get_driver
 
-    try:
-        from .mirai import *
-    except:
-        nonebot.logger.warning("Could not found MIRAI Adapter !")
-else:
-    from .nb import *
+init()
+
+
+driver = get_driver()
+
+if "cqhttp" in driver._adapters:
+    from .adapters.cqhttp import *
+
+if "mirai" in driver._adapters:
+    from .adapters.mirai import *
