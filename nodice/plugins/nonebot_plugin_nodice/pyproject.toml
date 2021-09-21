@@ -13,17 +13,12 @@ packages = [{ include = "nonebot_plugin_nodice", from = ".." }]
 
 [tool.poetry.dependencies]
 python = "^3.7.3"
-hjson = "^3.0.2"
 nonebot2 = "^2.0.0a15"
 nonebot-adapter-cqhttp = "^2.0.0a15"
-nonebot-adapter-mirai = { version = "^2.0.0-alpha.15", optional = true }
+hjson = "^3.0.2"
 
 [tool.poetry.dev-dependencies]
-nb-cli = "^0.4.1"
-nonebot2 = { git = "git@github.com:nonebot/nonebot2.git", rev = "dev" }
-
-[tool.poetry.extras]
-mah = ["nonebot-adapter-mirai"]
+nb-cli = "^0.5.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

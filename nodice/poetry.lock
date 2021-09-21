@@ -55,14 +55,14 @@ chardet = ">=3.0.2"
 
 [[package]]
 name = "boto3"
-version = "1.18.43"
+version = "1.18.44"
 description = "The AWS SDK for Python"
 category = "main"
 optional = false
 python-versions = ">= 3.6"
 
 [package.dependencies]
-botocore = ">=1.21.43,<1.22.0"
+botocore = ">=1.21.44,<1.22.0"
 jmespath = ">=0.7.1,<1.0.0"
 s3transfer = ">=0.5.0,<0.6.0"
 
@@ -71,7 +71,7 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.21.43"
+version = "1.21.44"
 description = "Low-level, data-driven core of boto 3."
 category = "main"
 optional = false
@@ -103,7 +103,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "charset-normalizer"
-version = "2.0.5"
+version = "2.0.6"
 description = "The Real First Universal Charset Detector. Open, modern and actively maintained alternative to Chardet."
 category = "dev"
 optional = false
@@ -375,19 +375,6 @@ httpx = ">=0.18.0,<0.19.0"
 nonebot2 = ">=2.0.0-alpha.14,<3.0.0"
 
 [[package]]
-name = "nonebot-adapter-mirai"
-version = "2.0.0a15"
-description = "Mirai Api HTTP adapter for nonebot2"
-category = "main"
-optional = true
-python-versions = ">=3.7.3,<4.0.0"
-
-[package.dependencies]
-httpx = ">=0.18.0,<0.19.0"
-nonebot2 = ">=2.0.0-alpha.14,<3.0.0"
-websockets = ">=9.1,<10.0"
-
-[[package]]
 name = "nonebot-plugin-manager"
 version = "0.5.0"
 description = "Nonebot Plugin Manager base on import hook"
@@ -413,54 +400,45 @@ hjson = "^3.0.2"
 nonebot-adapter-cqhttp = "^2.0.0a15"
 nonebot2 = "^2.0.0a15"
 
-[package.extras]
-mah = ["nonebot-adapter-mirai (>=2.0.0-alpha.15,<3.0.0)"]
-
 [package.source]
 type = "directory"
 url = "plugins/nonebot_plugin_nodice"
 
 [[package]]
 name = "nonebot-plugin-trpglogger"
-version = "0.2.0"
+version = "0.3.1"
 description = "a logger for TRPG"
 category = "main"
 optional = false
-python-versions = ">=3.7,<4.0"
+python-versions = ">=3.7.3,<4.0.0"
 
 [package.dependencies]
 boto3 = ">=1.17.13,<2.0.0"
+nonebot-adapter-cqhttp = ">=2.0.0-alpha.11,<3.0.0"
 nonebot2 = ">=2.0.0-alpha.11,<3.0.0"
 
 [[package]]
 name = "nonebot2"
-version = "2.0.0-alpha.15"
+version = "2.0.0a15"
 description = "An asynchronous python bot framework."
 category = "main"
 optional = false
-python-versions = "^3.7.3"
-develop = false
+python-versions = ">=3.7.3,<4.0.0"
 
 [package.dependencies]
-fastapi = "^0.68.0"
-httpx = {version = "^0.18.0", extras = ["http2"]}
-loguru = "^0.5.1"
-pydantic = {version = "~1.8.0", extras = ["dotenv"]}
-pygtrie = "^2.4.1"
-tomlkit = "^0.7.0"
-uvicorn = {version = "^0.14.0", extras = ["standard"]}
-websockets = "^9.1"
+fastapi = ">=0.68.0,<0.69.0"
+httpx = {version = ">=0.18.0,<0.19.0", extras = ["http2"]}
+loguru = ">=0.5.1,<0.6.0"
+pydantic = {version = ">=1.8.0,<1.9.0", extras = ["dotenv"]}
+pygtrie = ">=2.4.1,<3.0.0"
+tomlkit = ">=0.7.0,<0.8.0"
+uvicorn = {version = ">=0.14.0,<0.15.0", extras = ["standard"]}
+websockets = ">=9.1,<10.0"
 
 [package.extras]
 quart = ["Quart (>=0.15.0,<0.16.0)"]
-aiohttp = ["aiohttp[speedups] (>=3.7.4,<4.0.0)"]
 all = ["Quart (>=0.15.0,<0.16.0)", "aiohttp[speedups] (>=3.7.4,<4.0.0)"]
-
-[package.source]
-type = "git"
-url = "git@github.com:nonebot/nonebot2.git"
-reference = "dev"
-resolved_reference = "e0610fdcc0d9ad58b0136a5ed021b7178ef7fa1f"
+aiohttp = ["aiohttp[speedups] (>=3.7.4,<4.0.0)"]
 
 [[package]]
 name = "poyo"
@@ -752,12 +730,12 @@ docs = ["sphinx", "jaraco.packaging (>=8.2)", "rst.linker (>=1.9)"]
 testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-cov", "pytest-enabler (>=1.0.1)", "jaraco.itertools", "func-timeout", "pytest-black (>=0.3.7)", "pytest-mypy"]
 
 [extras]
-mah = ["nonebot-adapter-mirai"]
+mah = []
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7.3"
-content-hash = "2ce5e050fef0199c909a86cd8848a3295494e36e69f233d0b205704a21f4d158"
+content-hash = "de796d87c250907fb145b3a08ef6d0b1946377b4b8b4f7bf8cfecefb5af2d39c"
 
 [metadata.files]
 anyio = [
@@ -777,12 +755,12 @@ binaryornot = [
     {file = "binaryornot-0.4.4.tar.gz", hash = "sha256:359501dfc9d40632edc9fac890e19542db1a287bbcfa58175b66658392018061"},
 ]
 boto3 = [
-    {file = "boto3-1.18.43-py3-none-any.whl", hash = "sha256:9b6679e3c54f8c32c09872948450ece87473cbc830cfd6c84dad58eb014329ba"},
-    {file = "boto3-1.18.43.tar.gz", hash = "sha256:caa96b7c2be2168b6efc25ab1fb61c996174bcfbcab21b5f642608185daa6403"},
+    {file = "boto3-1.18.44-py3-none-any.whl", hash = "sha256:3a270f002818703d5f2eef5296c2fd8b44ef21a3f3290a716ec2202da8dd464e"},
+    {file = "boto3-1.18.44.tar.gz", hash = "sha256:8bc3211a7d7767c2c72ae9b226edb5eec5bb96989c83696832b8a5c35feb356a"},
 ]
 botocore = [
-    {file = "botocore-1.21.43-py3-none-any.whl", hash = "sha256:b74d0a5fe0f7b73fa4b5670eaa9ff456b0bce70966d478dcd631c91458916eb6"},
-    {file = "botocore-1.21.43.tar.gz", hash = "sha256:de7bf9c9098578d386b785b5b6eab954acccd3f79fe3e2eb971da608c967082b"},
+    {file = "botocore-1.21.44-py3-none-any.whl", hash = "sha256:c7640cb49c0e009bea4ad767715acbe0d305b7007235f52422bf31b5d23be8f1"},
+    {file = "botocore-1.21.44.tar.gz", hash = "sha256:2e134c9f799015e448086ed2b809fe50cc776f6600f093d1a44772288e61260f"},
 ]
 certifi = [
     {file = "certifi-2021.5.30-py2.py3-none-any.whl", hash = "sha256:50b1e4f8446b06f41be7dd6338db18e0990601dce795c2b1686458aa7e8fa7d8"},
@@ -793,8 +771,8 @@ chardet = [
     {file = "chardet-4.0.0.tar.gz", hash = "sha256:0d6f53a15db4120f2b08c94f11e7d93d2c911ee118b6b30a04ec3ee8310179fa"},
 ]
 charset-normalizer = [
-    {file = "charset-normalizer-2.0.5.tar.gz", hash = "sha256:7098e7e862f6370a2a8d1a6398cd359815c45d12626267652c3f13dec58e2367"},
-    {file = "charset_normalizer-2.0.5-py3-none-any.whl", hash = "sha256:fa471a601dfea0f492e4f4fca035cd82155e65dc45c9b83bf4322dfab63755dd"},
+    {file = "charset-normalizer-2.0.6.tar.gz", hash = "sha256:5ec46d183433dcbd0ab716f2d7f29d8dee50505b3fdb40c6b985c7c4f5a3591f"},
+    {file = "charset_normalizer-2.0.6-py3-none-any.whl", hash = "sha256:5d209c0a931f215cee683b6445e2d77677e7e75e159f78def0db09d68fafcaa6"},
 ]
 click = [
     {file = "click-8.0.1-py3-none-any.whl", hash = "sha256:fba402a4a47334742d782209a7c79bc448911afe1149d07bdabdf480b3e2f4b6"},
@@ -925,20 +903,19 @@ nonebot-adapter-cqhttp = [
     {file = "nonebot-adapter-cqhttp-2.0.0a15.tar.gz", hash = "sha256:cfb3dd4678d5e9f924baeb29220b95d5b651a51668e3ded1fd39df11b3531fde"},
     {file = "nonebot_adapter_cqhttp-2.0.0a15-py3-none-any.whl", hash = "sha256:9e5802f5c1bfb1e80ae56a80d3ee0dda2ca06ca90ba2bb2673590c91addc5aaa"},
 ]
-nonebot-adapter-mirai = [
-    {file = "nonebot-adapter-mirai-2.0.0a15.tar.gz", hash = "sha256:26c4ac67e131828e4df68293a79e09b3bfbffcb935e226d49e25770027efdc9e"},
-    {file = "nonebot_adapter_mirai-2.0.0a15-py3-none-any.whl", hash = "sha256:7abf1d2cabc948faccf36de1243aaf6a71f9f328edf3b12fdcf94713b8f8e9de"},
-]
 nonebot-plugin-manager = [
     {file = "nonebot_plugin_manager-0.5.0-py3-none-any.whl", hash = "sha256:b6575e2f9499b53545d3016cb8adda58e9443d0238391787d8d831ea7c52be13"},
     {file = "nonebot_plugin_manager-0.5.0.tar.gz", hash = "sha256:032ad6c9acda5e44b78292ba9f5c3ca6a1bb4f716cff6aa279e90069f44904de"},
 ]
 nonebot-plugin-nodice = []
 nonebot-plugin-trpglogger = [
-    {file = "nonebot_plugin_trpglogger-0.2.0-py3-none-any.whl", hash = "sha256:e816f2134069aa6176d550fce481db967f1f4d7cbe71af33080ee77a746e5f0b"},
-    {file = "nonebot_plugin_trpglogger-0.2.0.tar.gz", hash = "sha256:ad4994d8bca756a030992e91e3603c744e61d5e46dc14de7d6bea5fe86144c2f"},
+    {file = "nonebot_plugin_trpglogger-0.3.1-py3-none-any.whl", hash = "sha256:f1ea4b1f5682ec57e21f23d19d229b75d658cd35b74fddfc1ce46838d5112007"},
+    {file = "nonebot_plugin_trpglogger-0.3.1.tar.gz", hash = "sha256:5afa85dee56efcc72560936ecdc27775d5976704e960462cb191fad014bdf654"},
 ]
-nonebot2 = []
+nonebot2 = [
+    {file = "nonebot2-2.0.0a15-py3-none-any.whl", hash = "sha256:bc5c99bacf2864c84b8cd186c92a9850489f69354a5467c047b0210c4f4a20da"},
+    {file = "nonebot2-2.0.0a15.tar.gz", hash = "sha256:f8fb5e58a3e5b08f985d46b01798f14654e66d0cab34e73e5c5ae4ddb4a4db67"},
+]
 poyo = [
     {file = "poyo-0.5.0-py2.py3-none-any.whl", hash = "sha256:3e2ca8e33fdc3c411cd101ca395668395dd5dc7ac775b8e809e3def9f9fe041a"},
     {file = "poyo-0.5.0.tar.gz", hash = "sha256:e26956aa780c45f011ca9886f044590e2d8fd8b61db7b1c1cf4e0869f48ed4dd"},

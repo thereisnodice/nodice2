@@ -3,7 +3,7 @@
 
 # NoDice2
 
-*基于 [nonebot2](https://github.com/nonebot/nonebot2)，兼容 [go-cqhttp](https://github.com/Mrs4s/go-cqhttp) 和 [mirai-api-http](https://github.com/project-mirai/mirai-api-http) 的 QQ 跑团掷骰机器人*
+*基于 [nonebot2](https://github.com/nonebot/nonebot2) 和 [go-cqhttp](https://github.com/Mrs4s/go-cqhttp) 的 QQ 跑团掷骰机器人*
 
 Demo：[Dr.Sink](https://wpa.qq.com/msgrd?v=3&uin=1351483470&site=qq&menu=yes)
 
