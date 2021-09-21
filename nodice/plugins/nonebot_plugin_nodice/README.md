@@ -7,11 +7,9 @@
 ![NoneBot Version](https://img.shields.io/badge/nonebot-2.0.0a11+-red.svg)
 ![Pypi Version](https://img.shields.io/pypi/v/nonebot-plugin-nodice.svg)
 
-### Commands
+## Commands
 
-**完美移植的功能**
-
-#### 完美移植的功能
+### 完美移植的功能
 
 - [x] 人物作成 `.coc/dnd`
 - [x] 拓展牌堆 `.draw`
@@ -33,30 +31,30 @@
 - [x] 疯狂症状 `.ti/li`
 - [ ] WOD 骰池 `.w(w)`
 
-#### 已整合的功能
+### 已整合的功能
 
 - [ ] 先攻列表 `.init` 整合至 `.ri` 下，具体形式未定。
 
-#### 用其他插件实现的功能
+### 用其他插件实现的功能
 
 - [ ] 骰子开关 `.bot on/off`
 - [x] 跑团记录 `.log`
 
-#### 放弃实现的功能
+### 放弃实现的功能
 
 - [ ] 分群牌堆 `.deck`
 - [ ] 发送消息 `.send`
 - [ ] 集成群管 `.group`
 - [ ] 欢迎词 `.welcome`
 - [x] 退群指令 `.dismiss`
-- [ ] 第三人称动作 `.me `
+- [ ] 第三人称动作 `.me`
 - [ ] 授权许可 `!authorize`
 
-### License
+## License
 
 [AGPL-3.0 License](LICENSE)
 
-### Thanks
+## Thanks
 
 - [w4123](https://github.com/w4123) aka 溯洄，Dice! 的主要开发者与 Dice3 的开发者。
 - [mystringEmpty](https://github.com/mystringEmpty) Dice! 的另一名主要开发者。

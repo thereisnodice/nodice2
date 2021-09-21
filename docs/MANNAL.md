@@ -18,7 +18,7 @@ nonebot2==2.0.0a13.post1
 nonebot-adapter-cqhttp==2.0.0a12
 ```
 
-### 快速开始 (Windows)
+## 快速开始 (Windows)
 
 确保你已经下载并安装了 [Git](https://git-scm.com/) 和 [Python](https://www.python.org/).
 
@@ -34,7 +34,7 @@ poetry install
 
 接着，在 nodice2 目录创建 `go-cqhttp` 文件夹（当然你也可以把 go-cqhttp 文件夹放到其他地方，只是放在一起更方便管理）并将之前下载好的 go-cqhttp 复制到该目录下。
 
-#### 配置go-cqhttp
+### 配置go-cqhttp
 
 运行一次 go-cqhttp ，此时目录下会出现 `config.hjson` 文件，按如下修改配置。
 
@@ -158,12 +158,12 @@ poetry install
 
 再次运行 go-cqhttp
 
-#### 配置 nonebot2
+### 配置 nonebot2
 
 ```
 nb run
 ```
 
-### 快速开始（Linux）
+## 快速开始（Linux）
 
 **目前由于诸多原因，不推荐使用 Docker 部署。如需 Docker 部署请自行尝试，恕不提供技术支持。**

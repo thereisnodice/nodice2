@@ -13,9 +13,9 @@ Demo：[Dr.Sink](https://wpa.qq.com/msgrd?v=3&uin=1351483470&site=qq&menu=yes)
 
 </div>
 
-### Commands
+## Commands
 
-#### 完美移植的功能
+### 完美移植的功能
 
 - [x] 人物作成 `.coc/dnd`
 - [x] 拓展牌堆 `.draw`
@@ -37,16 +37,16 @@ Demo：[Dr.Sink](https://wpa.qq.com/msgrd?v=3&uin=1351483470&site=qq&menu=yes)
 - [x] 疯狂症状 `.ti/li`
 - [ ] WOD 骰池 `.w(w)`
 
-#### 已整合的功能
+### 已整合的功能
 
 - [ ] 先攻列表 `.init` 整合至 `.ri` 下，具体形式未定。
 
-#### 用其他插件实现的功能
+### 用其他插件实现的功能
 
 - [ ] 骰子开关 `.bot on/off`
 - [x] 跑团记录 `.log`
 
-#### 放弃实现的功能
+### 放弃实现的功能
 
 - [ ] 分群牌堆 `.deck`
 - [ ] 发送消息 `.send`
@@ -56,19 +56,19 @@ Demo：[Dr.Sink](https://wpa.qq.com/msgrd?v=3&uin=1351483470&site=qq&menu=yes)
 - [ ] 第三人称动作 `.me`
 - [ ] 授权许可 `!authorize`
 
-### Developer
+## Developer
 
 [开发文档](./docs/DEVELOPER.md)
 
-### Mannal
+## Mannal
 
 [部署指南](./docs/MANNAL.md)
 
-### License
+## License
 
 [AGPL-3.0 License](LICENSE)
 
-### Thanks
+## Thanks
 
 - [w4123](https://github.com/w4123) aka 溯洄，Dice! 的主要开发者与 Dice3 的开发者。
 - [mystringEmpty](https://github.com/mystringEmpty) Dice! 的另一名主要开发者。
