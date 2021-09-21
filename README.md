@@ -53,7 +53,7 @@ Demo：[Dr.Sink](https://wpa.qq.com/msgrd?v=3&uin=1351483470&site=qq&menu=yes)
 - [ ] 集成群管 `.group`
 - [ ] 欢迎词 `.welcome`
 - [x] 退群指令 `.dismiss`
-- [ ] 第三人称动作 `.me `
+- [ ] 第三人称动作 `.me`
 - [ ] 授权许可 `!authorize`
 
 ### Developer
