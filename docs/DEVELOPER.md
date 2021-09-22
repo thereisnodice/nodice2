@@ -1,79 +1,54 @@
 # 开发文档
 
-本项目暂时以 Dice! 2.5.0 作为移植的蓝本，在完成 80% 以上的基本功能移植之前不会增加新的功能。
+~~本项目暂时以 Dice! 2.5.0 作为移植的蓝本，在完成 80% 以上的基本功能移植之前不会增加新的功能。~~
+
+本项目以 Dice! 2.4 作为指令参照，如有雷同不是巧合。
 
 ## 移植计划
 
-~~也许我该放弃移植 Dice!~~
+### 为何没有 XX 功能
 
-### 前言
+> 如无必要，勿增实体。
 
-> 以下意见仅针对 Dice! 项目本身，不针对**任何**开发者。
+### 核心功能
 
-我一直认为，Dice! 作为一个掷骰插件，它的手伸得有些太长了。一开始只是增加一些额外的娱乐功能，例如今日人品、拓展牌堆，这些虽然与 Dice! 掷骰功能没有直接的关联，但作为小功能添加进来无伤大雅。但自从云黑名单添加进来之后，一切都变了。“保护骰主”这一本意是极好的，但最后无疑成了一场闹剧：由于拉黑解黑产生的纠纷有时候甚至凌驾于其原因之上，而某些骰主对于这一至高权力的滥用更是让我无法接受。要解决这种现状，我认为只有两种方法：要么像塔系骰子一样名义上开源但实际上整个社区仍然处于作者的掌控之下，要么就彻底取消这一功能。
+- [x] 掷骰`.roll` `.r`
+  - [ ] 设置默认骰`.set`
+- [ ] 角色卡`.char` `.pc`
+  - [ ] 设置昵称`.nn(n)`
+  - [ ] 属性记录`.st`
+  - [ ] 人物作成`.coc` `.dnd`
+- [ ] 拓展牌堆`.draw` `.deck`
+  - [ ] 随机姓名`.name`
 
-我最初是想通过自行修改出一个版本来解决这些问题，但介于我对 Dice! 这个项目本身没有足够的了解，也觉得在一个充满他人风格的大项目上修修补补还不如自己从零开始写一个版本。这就是 NoDice，基于 NoneBot 的 Dice! 移植。在我之前，已经有诸位前辈在 Nonebot 框架上移植过 Dice! ，但我仍然想要一个属于自己的版本，坚持自己的松耦合原则，以及彻底与那些臃肿的额外功能划清界限。
+### COC 拓展
 
-### 完美移植的功能
+- [ ] COC 检定`.ra` `.rc`
+  - [ ] COC 房规`.setcoc`
+  - [ ] COC 理智检定`.sc`
+  - [ ] COC 成长检定`.en`
+- [x] 疯狂症状`.ti` `.li`
+- [ ] 旁观模式`.ob`
 
-- [x] 人物作成 `.coc/dnd`
-- [x] 拓展牌堆 `.draw`
-- [ ] COC 成长检定 `.en`
-- [x] 帮助文档 `.help`
-- [x] 今日人品 `.jrrp`
-- [x] 随机姓名 `.name`
-- [ ] 设置昵称 `.nn(n)`
-- [ ] 旁观模式 `.ob`
-- [ ] 角色卡记录 `.pc`
-- [x] 标准掷骰 `.r`
-- [ ] COC 检定 `.ra/rc`
-- [ ] DND 先攻 `.ri` 
-- [x] 规则速查 `.rules`
-- [ ] COC 理智检定 `.sc`
-- [ ] 设置默认骰 `.set`
-- [ ] COC 房规 `.setcoc`
-- [ ] 属性记录 `.st`
-- [x] 疯狂症状 `.ti/li`
-- [ ] WOD 骰池 `.w(w)`
+### 依赖于溯洄公开服务的功能
 
-### 已整合的功能
+- [x] 今日人品`.jrrp`
+- [x] 规则速查`.rules`
+- [x] 跑团记录`.log` [TRPGLogger](https://github.com/thereisnodice/TRPGLogger)
 
-- [ ] 先攻列表 `.init` 整合至 `.ri` 下，具体形式未定。
+### 暂不实现的功能
 
-### 用其他插件实现的功能
-
-- [ ] 骰子开关 `.bot on/off`：[nonebot_plugin_manager](https://github.com/Jigsaw111/nonebot_plugin_manager)
-- [x] 跑团记录 `.log` ：[TRPGLogger](https://github.com/thereisnodice/TRPGLogger)
-
-### 放弃实现的功能
-
-- [ ] 分群牌堆 `.deck` 我觉得 draw 功能已经足够了，如需更进一步请使用 [nonebot_plugin_simdraw](https://github.com/abrahum/nonebot_plugin_simdraw)
-- [ ] 发送消息 `.send` 纯属画蛇添足，要给骰主发消息建议直接加骰主好友。
-- [ ] 集成群管 `.group` 不是本插件该有的功能，之后会用其他插件实现但不会实装。
-- [ ] 欢迎词 `.welcome` 不是本插件该有的功能，之后会用其他插件实现但不会实装。
-- [x] 退群指令 `.dismiss` 不是本插件该有的功能，之后会用其他插件实现但不会实装。
-- [ ] 第三人称动作 `.me` 没有任何用处，如需伪装成骰子请自行登录，本人不支持这种无聊的行为。
-- [ ] 授权许可 `!authorize` 绝对不是本插件该有的功能，永远不会实现。
-- [ ] lua 脚本 有那闲工夫为什么不自己写个 Nonebot 插件呢？
-
-## 结构说明
-
-**基本原则：将各个模块的内容单独封装成一个个与 Nonebot 松耦合的类。**
-
-...
+- [ ] 骰子开关`.bot` **REPLACE** [nonebot_plugin_manager](https://github.com/Jigsaw111/nonebot_plugin_manager)
+- [ ] WOD 骰池`.w(w)` **TODO**
+- [ ] DND 先攻`.ri` **TODO**
+- [ ] 先攻列表`.init` **TODO**
+- [ ] 发送消息`.send` **MAYBE**
+- [ ] 集成群管`.group` **MAYBE**
+- [ ] 欢迎词`.welcome` **MAYBE**
+- [ ] 退群指令`.dismiss` **MAYBE**
+- [ ] 第三人称动作`.me` **NEVER**
+- [ ] 授权许可`!authorize` **NEVER**
 
 ## Bug
 
-- 突然发现自己写 format_message 的时候留下了一个致命的 bug ：只要在带原因的指令中将原因写成 {reason} ，nodice 就会在这一步无限递归，锁死 nb 。
-
-## Bug(fix)
-
-*已修复的 Bug 会被丢到这来。*
-
-1. 写 [TRPGLogger](https://github.com/thereisnodice/TRPGLogger) 的时候发现我一直以来都把数据储存在插件文件夹里，这对于使用 `git clone` 来下载插件的人没有什么问题，但是一旦有人使用 pypi 来下载插件，数据便会被存储到 python 的 site-package 里，导致挂载在同一台计算机上的 bot 共享数据。
-
-2. 不知道为什么会把 `[` 转义成奇怪的编码，经低调佬指点得知是 get_message 的问题，需要再 extract_plain_text 才行。
-
-## Changelog
-
-TO DO
+- [ ] 在带原因的指令中将原因写成`{reason}`会造成死锁

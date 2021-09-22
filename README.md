@@ -15,46 +15,44 @@ Demo：[Dr.Sink](https://wpa.qq.com/msgrd?v=3&uin=1351483470&site=qq&menu=yes)
 
 ## Commands
 
-### 完美移植的功能
+### 核心功能
 
-- [x] 人物作成 `.coc/dnd`
-- [x] 拓展牌堆 `.draw`
-- [ ] COC 成长检定 `.en`
-- [x] 帮助文档 `.help`
-- [x] 今日人品 `.jrrp`
-- [x] 随机姓名 `.name`
-- [ ] 设置昵称 `.nn(n)`
-- [ ] 旁观模式 `.ob`
-- [ ] 角色卡记录 `.pc`
-- [x] 标准掷骰 `.r`
-- [ ] COC 检定 `.ra/rc`
-- [ ] DND 先攻 `.ri` 
-- [x] 规则速查 `.rules`
-- [ ] COC 理智检定 `.sc`
-- [ ] 设置默认骰 `.set`
-- [ ] COC 房规 `.setcoc`
-- [ ] 属性记录 `.st`
-- [x] 疯狂症状 `.ti/li`
-- [ ] WOD 骰池 `.w(w)`
+- [x] 掷骰`.roll` `.r`
+  - [ ] 设置默认骰`.set`
+- [ ] 角色卡`.char` `.pc`
+  - [ ] 设置昵称`.nn(n)`
+  - [ ] 属性记录`.st`
+  - [ ] 人物作成`.coc` `.dnd`
+- [ ] 拓展牌堆`.draw` `.deck`
+  - [ ] 随机姓名`.name`
 
-### 已整合的功能
+### COC 拓展
 
-- [ ] 先攻列表 `.init` 整合至 `.ri` 下，具体形式未定。
+- [ ] COC 检定`.ra` `.rc`
+  - [ ] COC 房规`.setcoc`
+  - [ ] COC 理智检定`.sc`
+  - [ ] COC 成长检定`.en`
+- [x] 疯狂症状`.ti` `.li`
+- [ ] 旁观模式`.ob`
 
-### 用其他插件实现的功能
+### 依赖于溯洄公开服务的功能
 
-- [ ] 骰子开关 `.bot on/off`
-- [x] 跑团记录 `.log`
+- [x] 今日人品`.jrrp`
+- [x] 规则速查`.rules`
+- [x] 跑团记录`.log` [TRPGLogger](https://github.com/thereisnodice/TRPGLogger)
 
-### 放弃实现的功能
+### 暂不实现的功能
 
-- [ ] 分群牌堆 `.deck`
-- [ ] 发送消息 `.send`
-- [ ] 集成群管 `.group`
-- [ ] 欢迎词 `.welcome`
-- [x] 退群指令 `.dismiss`
-- [ ] 第三人称动作 `.me`
-- [ ] 授权许可 `!authorize`
+- [ ] 骰子开关`.bot` **REPLACE** [nonebot_plugin_manager](https://github.com/Jigsaw111/nonebot_plugin_manager)
+- [ ] WOD 骰池`.w(w)` **TODO**
+- [ ] DND 先攻`.ri` **TODO**
+- [ ] 先攻列表`.init` **TODO**
+- [ ] 发送消息`.send` **MAYBE**
+- [ ] 集成群管`.group` **MAYBE**
+- [ ] 欢迎词`.welcome` **MAYBE**
+- [ ] 退群指令`.dismiss` **MAYBE**
+- [ ] 第三人称动作`.me` **NEVER**
+- [ ] 授权许可`!authorize` **NEVER**
 
 ## Developer
 
