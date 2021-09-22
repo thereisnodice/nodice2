@@ -16,13 +16,6 @@
             "command": "cd go-cqhttp; go-cqhttp faststart",
             "problemMatcher": [],
             "group": "build"
-        },
-        {
-            "label": "mirai-api-http",
-            "type": "shell",
-            "command": "cd mirai-api-http; ./mcl ",
-            "problemMatcher": [],
-            "group": "build"
         }
     ]
 }
