@@ -1,30 +1,50 @@
 import sqlite3
-import os
+from pathlib import Path
 
-_DB_FILE = os.path.join("data", "nodice", "nodice.db")
+__DB_FILE = Path() / "data" / "nodice" / "nodice.db"
 
 # 当前角色卡
 def set_current_character(user_id: int, group_id: int, current_character: str) -> bool:
-    if insert_db("group_info", {"user_id": user_id, "group_id": group_id, "current_character": current_character}):
+    if __insert_db(
+        "group_info",
+        {
+            "user_id": user_id,
+            "group_id": group_id,
+            "current_character": current_character,
+        },
+    ):
         return True
     else:
-        return update_db("group_info", {"current_character": current_character}, {"user_id": user_id, "group_id": group_id})
+        return __update_db(
+            "group_info",
+            {"current_character": current_character},
+            {"user_id": user_id, "group_id": group_id},
+        )
+
+
 def get_current_character(user_id: int, group_id: int) -> str:
-    current_character = select_db("group_info", ("current_character",), {"user_id": user_id, "group_id": group_id})
+    current_character = __select_db(
+        "group_info", ("current_character",), {"user_id": user_id, "group_id": group_id}
+    )
     if current_character:
         return current_character[0]
     else:
         set_current_character(user_id, group_id, "default")
         return "default"
 
+
 # 默认骰
 def set_default_dice(group_id: int, default_dice: int) -> bool:
-    if insert_db("group_info", {"group_id": group_id, "default_dice": default_dice}):
+    if __insert_db("group_info", {"group_id": group_id, "default_dice": default_dice}):
         return True
     else:
-        return update_db("group_info", {"default_dice": default_dice}, {"group_id": group_id})
+        return __update_db(
+            "group_info", {"default_dice": default_dice}, {"group_id": group_id}
+        )
+
+
 def get_default_dice(group_id: int) -> int:
-    default_dice = select_db("group_info", ("default_dice",), {"group_id": group_id})
+    default_dice = __select_db("group_info", ("default_dice",), {"group_id": group_id})
     if default_dice:
         return default_dice[0]
     else:
@@ -34,12 +54,14 @@ def get_default_dice(group_id: int) -> int:
 
 # 昵称
 def set_nickname(user_id: int, nickname: str) -> bool:
-    if insert_db("user_info", {"user_id": user_id, "nickname": nickname}):
+    if __insert_db("user_info", {"user_id": user_id, "nickname": nickname}):
         return True
     else:
-        return update_db("user_info", {"nickname": nickname}, {"user_id": user_id})
+        return __update_db("user_info", {"nickname": nickname}, {"user_id": user_id})
+
+
 def get_nickname(user_id: int, username: str) -> str:
-    nickname = select_db("user_info", ("nickname",), {"user_id": user_id})
+    nickname = __select_db("user_info", ("nickname",), {"user_id": user_id})
     if nickname:
         return nickname[0]
     else:
@@ -48,18 +70,21 @@ def get_nickname(user_id: int, username: str) -> str:
 
 # 角色卡属性
 def set_attribute(user_id: int, name: str, attribute: dict) -> bool:
-    if insert_db(
-        "character_info", {"user_id": user_id, "name": name, "attribute": str(attribute)}
+    if __insert_db(
+        "character_info",
+        {"user_id": user_id, "name": name, "attribute": str(attribute)},
     ):
         return True
     else:
-        return update_db(
+        return __update_db(
             "character_info",
             {"attribute": str(attribute)},
             {"user_id": user_id, "name": name},
         )
+
+
 def get_attribute(user_id: int, name: str):
-    attribute = select_db(
+    attribute = __select_db(
         "character_info", ("attribute",), {"user_id": user_id, "name": name}
     )
     if attribute:
@@ -76,8 +101,8 @@ def py2sql(value) -> str:
     return result
 
 
-def create_db():
-    conn = sqlite3.connect(_DB_FILE)
+def __create_db():
+    conn = sqlite3.connect(__DB_FILE)
     cur = conn.cursor()
     # 用户数据
     # 权限默认 0，黑名单为 -1，骰主为 5，群管在自己群内为 1
@@ -123,10 +148,10 @@ def create_db():
     conn.close()
 
 
-def update_db(table_name: str, columns: dict, condition: dict) -> bool:
-    create_db()
+def __update_db(table_name: str, columns: dict, condition: dict) -> bool:
+    __create_db()
     try:
-        conn = sqlite3.connect(_DB_FILE)
+        conn = sqlite3.connect(__DB_FILE)
         cur = conn.cursor()
         sql = f"UPDATE {table_name} SET "
         for i, key in enumerate(columns.keys()):
@@ -146,10 +171,10 @@ def update_db(table_name: str, columns: dict, condition: dict) -> bool:
         return False
 
 
-def insert_db(table_name: str, columns: dict) -> bool:
-    create_db()
+def __insert_db(table_name: str, columns: dict) -> bool:
+    __create_db()
     try:
-        conn = sqlite3.connect(_DB_FILE)
+        conn = sqlite3.connect(__DB_FILE)
         cur = conn.cursor()
         sql = f"INSERT INTO {table_name} ("
         for i, key in enumerate(columns.keys()):
@@ -170,10 +195,10 @@ def insert_db(table_name: str, columns: dict) -> bool:
         return False
 
 
-def select_db(table_name: str, columns: tuple, condition: dict):
-    create_db()
+def __select_db(table_name: str, columns: tuple, condition: dict):
+    __create_db()
     try:
-        conn = sqlite3.connect(_DB_FILE)
+        conn = sqlite3.connect(__DB_FILE)
         cur = conn.cursor()
         sql = "SELECT "
         for i, value in enumerate(columns):
@@ -192,10 +217,10 @@ def select_db(table_name: str, columns: tuple, condition: dict):
         return False
 
 
-def delete_db(table_name: str, condition: dict):
-    create_db()
+def __delete_db(table_name: str, condition: dict):
+    __create_db()
     try:
-        conn = sqlite3.connect(_DB_FILE)
+        conn = sqlite3.connect(__DB_FILE)
         cur = conn.cursor()
         sql = f"DELETE FROM {table_name} WHERE "
         for i, key in enumerate(condition.keys()):

@@ -15,7 +15,6 @@ packages = [{ include = "nonebot_plugin_nodice", from = ".." }]
 python = "^3.7.3"
 nonebot2 = "^2.0.0a15"
 nonebot-adapter-cqhttp = "^2.0.0a15"
-hjson = "^3.0.2"
 
 [tool.poetry.dev-dependencies]
 nb-cli = "^0.5.0"

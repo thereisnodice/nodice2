@@ -1,18 +1,18 @@
-import hjson
+import json
 
 
 def setGlobalMsg(key: str, value: str):
     with open("data/nodice/CustomMsg.hjson", "r", encoding="utf-8") as f:
-        CustomMsg = hjson.loads(f.read())
+        CustomMsg = json.loads(f.read())
     CustomMsg[key] = value
     with open("data/nodice/CustomMsg.hjson", "w", encoding="utf-8") as f:
-        f.write(hjson.dumps(CustomMsg))
+        f.write(json.dumps(CustomMsg))
 
 
 def getGlobalMsg(key: str):
     try:
         with open("data/nodice/CustomMsg.hjson", "r", encoding="utf-8") as f:
-            CustomMsg = hjson.loads(f.read())
+            CustomMsg = json.loads(f.read())
             return CustomMsg[key]
     except:
         return False
